@@ -9,4 +9,5 @@ Board
 
 Ship construction
 
-CPU logic
+CPU logic - Katherine Kin
+
