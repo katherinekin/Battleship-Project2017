@@ -1,0 +1,5 @@
+﻿  Main.cpp
+c:\users\katherine\documents\visual studio 2015\projects\battleshiprough\battleshiprough\main.cpp(98): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleshiprough\battleshiprough\main.cpp(104): warning C4018: '<': signed/unsigned mismatch
+  BattleshipRough.vcxproj -> c:\users\katherine\documents\visual studio 2015\Projects\BattleshipRough\Debug\BattleshipRough.exe
+  BattleshipRough.vcxproj -> c:\users\katherine\documents\visual studio 2015\Projects\BattleshipRough\Debug\BattleshipRough.pdb (Partial PDB)
