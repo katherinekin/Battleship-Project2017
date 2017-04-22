@@ -7,8 +7,27 @@ using namespace std;
 
 struct Point
 {
+	/*
+	char x;
+	// x row is characters A-J
+	*/
 	int x;
 	int y;
+	Point() 
+	{
+		x = 0;
+		y = 0;
+	}
+	Point(int inst_x, int inst_y) 
+	{
+		x = inst_x;
+		y = inst_y;
+	}
+	friend ostream& operator<<(ostream& os, const Point point)
+	{
+		os << point.x << point.y; // should print this struct as 12:= row 1, column 2
+		return os;
+	}
 };
 
 void HitOrMiss(int **temp, int board[], vector<Point> &locs, vector<Point> &checkLater);
@@ -17,6 +36,11 @@ void findtheShip(vector<Point> &locs, int x, int y, vector<Point> &checkLater);
 
 int main()
 {
+	// sample code for constructing and printing point
+	Point samplePoint = Point(2, 2);
+	cout << samplePoint << endl << endl;
+
+
 	int row = 10;
 	int* board = new int[row*row];
 	int** temp = new int*[row];
