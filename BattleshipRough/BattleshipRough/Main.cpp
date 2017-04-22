@@ -25,7 +25,7 @@ struct Point
 	}
 	friend ostream& operator<<(ostream& os, const Point point)
 	{
-		os << point.x << point.y; // should print this struct as 12:= row 1, column 2
+		os << point.x << point.y; // should print this struct as "12" := row 1, column 2
 		return os;
 	}
 };
@@ -36,7 +36,7 @@ void findtheShip(vector<Point> &locs, int x, int y, vector<Point> &checkLater);
 
 int main()
 {
-	// sample code for constructing and printing point
+	// sample code for constructing and printing a point
 	Point samplePoint = Point(2, 2);
 	cout << samplePoint << endl << endl;
 
@@ -65,9 +65,39 @@ int main()
 
 	//draw the board
 	//set vector locs
+	
+	// Margin Row
+	cout << endl;
+
+	// Letter Row
+	char colLetter = 'A';
+	cout << "     ";
+	for (int x = 0; x < 10; x++)
+	{
+		cout << colLetter << "   ";
+		colLetter++;
+	}
+	cout << endl;
+
+	// Top Line
+	cout << "   _";
+	for (int c = 0; c < 10; c++)
+		cout << "____";
+	cout << endl;
+
 	int count = 0;
 	for (int r = 0; r < row; r++)
 	{
+		// Padding Line
+		cout << "   |  ";
+		for (int c = 0; c < 10; c++)
+			cout << " |  ";
+		cout << endl;
+		if ((r+1) < 10)
+			cout << " " << (r+1) << " | ";
+		else
+			cout << " " << (r+1) << "| ";
+
 		for (int c = 0; c < row; c++)
 		{		
 			locs.at(count).x = r;
@@ -75,8 +105,17 @@ int main()
 			count++;
 
 			//draw
-			cout << temp[r][c] << " ";
+
+			// cout << temp[r][c] << " ";
+			
+			// Data Line
+			cout << temp[r][c] <<" | ";
+
 		}
+		cout << endl;
+		cout << "   |";
+		for (int c = 0; c < 10; c++)
+			cout << "___|";
 		cout << endl;
 	}
 
