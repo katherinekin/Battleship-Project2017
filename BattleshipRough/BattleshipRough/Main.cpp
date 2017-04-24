@@ -2,14 +2,9 @@
 #include<random>
 #include<vector>
 #include<string>
+#include"Point.h"
 using namespace std;
 
-
-struct Point
-{
-	int x;
-	int y;
-};
 
 void HitOrMiss(int **temp, int board[], vector<Point> &locs, vector<Point> &checkLater);
 void removeAdjSpaces(vector<Point> &locs, int x, int y, vector<Point> &checkLater);
