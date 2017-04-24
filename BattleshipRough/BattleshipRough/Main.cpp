@@ -4,7 +4,34 @@
 #include<string>
 #include"Enemy.h"
 
+<<<<<<< HEAD
 using namespace std;
+=======
+struct Point
+{
+	/*
+	char x;
+	// x row is characters A-J
+	*/
+	int x;
+	int y;
+	Point() 
+	{
+		x = 0;
+		y = 0;
+	}
+	Point(int inst_x, int inst_y) 
+	{
+		x = inst_x;
+		y = inst_y;
+	}
+	friend ostream& operator<<(ostream& os, const Point point)
+	{
+		os << point.x << point.y; // should print this struct as "12" := row 1, column 2
+		return os;
+	}
+};
+>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 //void HitOrMiss(int **temp, int board[], vector<Point> &locs, vector<Point> &checkLater);
@@ -15,9 +42,16 @@ using namespace std;
 int main()
 {
 	// sample code for constructing and printing a point
+<<<<<<< HEAD
 	Point samplePoint(2, 2);
 	cout << samplePoint << endl << endl;
 
+=======
+	Point samplePoint = Point(2, 2);
+	cout << samplePoint << endl << endl;
+
+
+>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 	int row = 10;
 	int* board = new int[row*row];
 	int** temp = new int*[row];
