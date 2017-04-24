@@ -2,21 +2,29 @@
 #include<random>
 #include<vector>
 #include<string>
-#include"Point.h"
+#include"Enemy.h"
+
 using namespace std;
 
-
-void HitOrMiss(int **temp, int board[], vector<Point> &locs, vector<Point> &checkLater);
-void removeAdjSpaces(vector<Point> &locs, int x, int y, vector<Point> &checkLater);
-void findtheShip(vector<Point> &locs, int x, int y, vector<Point> &checkLater);
+//>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
+//void HitOrMiss(int **temp, int board[], vector<Point> &locs, vector<Point> &checkLater);
+//void removeAdjSpaces(vector<Point> &locs, int x, int y, vector<Point> &checkLater);
+//void findtheShip(vector<Point> &locs, int x, int y, vector<Point> &checkLater);
+//void Miss(vector<Point> &locs, int i, Point p, vector<Point> &checkLater);
 
 int main()
 {
+	// sample code for constructing and printing a point
+	Point samplePoint(2, 2);
+	cout << samplePoint << endl << endl;
+
 	int row = 10;
 	int* board = new int[row*row];
 	int** temp = new int*[row];
 	vector<Point> locs(100);
 	vector<Point> checkLater;
+	bool state = 0;
+	
 
 	for (int r = 0; r < row; r++)
 	{
@@ -36,9 +44,39 @@ int main()
 
 	//draw the board
 	//set vector locs
+	
+	// Margin Row
+	cout << endl;
+
+	// Letter Row
+	char colLetter = 'A';
+	cout << "     ";
+	for (int x = 0; x < 10; x++)
+	{
+		cout << colLetter << "   ";
+		colLetter++;
+	}
+	cout << endl;
+
+	// Top Line
+	cout << "   _";
+	for (int c = 0; c < 10; c++)
+		cout << "____";
+	cout << endl;
+
 	int count = 0;
 	for (int r = 0; r < row; r++)
 	{
+		// Padding Line
+		cout << "   |  ";
+		for (int c = 0; c < 10; c++)
+			cout << " |  ";
+		cout << endl;
+		if ((r+1) < 10)
+			cout << " " << (r+1) << " | ";
+		else
+			cout << " " << (r+1) << "| ";
+
 		for (int c = 0; c < row; c++)
 		{		
 			locs.at(count).x = r;
@@ -46,24 +84,38 @@ int main()
 			count++;
 
 			//draw
-			cout << temp[r][c] << " ";
+
+			// cout << temp[r][c] << " ";
+			
+			// Data Line
+			cout << temp[r][c] <<" | ";
+
 		}
 		cout << endl;
+		cout << "   |";
+		for (int c = 0; c < 10; c++)
+			cout << "___|";
+		cout << endl;
 	}
+
+	//initialize comp
+	Enemy comp(locs, checkLater, state);
 
 	//computer keeps going until player exits or types 'Q'
 	char userInput;
 	cout << "Press enter to allow the computer to move" << endl;
 	cin.get(userInput);
+
 	while (!(userInput == 'Q'))
 	{
-		HitOrMiss(temp, board, locs, checkLater);
+		comp.turn(temp, board);
 		cin.get(userInput);
 	} 
 
 	return 0;
 }
 
+/*
 void HitOrMiss(int **temp, int board[], vector<Point> &locs, vector<Point> &checkLater)
 {
 	int index = rand() % locs.size();
@@ -82,31 +134,40 @@ void HitOrMiss(int **temp, int board[], vector<Point> &locs, vector<Point> &chec
 	{
 		cout << x << ", " << y << endl;
 		cout << "MISS"<<endl;
-		//remove from locs
-		locs.erase(locs.begin() + index);
-		//call function to also remove adjacent spaces
-		removeAdjSpaces(locs, p.x, p.y, checkLater);
-		cout << p.x << ", " << p.y << " is a miss!"<<endl;
+		
+		//write this in a new function, that calls adjacent spaces
+		Miss(locs, index, p, checkLater);
 	}
 	
 
 	for (int i = 0; i < locs.size(); i++)
 	{
 		//cout << "My vector contains " << locs.at(i);
-		cout << locs.at(i).x << ", " << locs.at(i).y <<"   ";
+		cout << locs.at(i) <<"   ";
 	}
+
 	cout << endl;
 	for (int i = 0; i < checkLater.size(); i++)
 	{
 		//cout << "My vector contains " << locs.at(i);
-		cout << checkLater.at(i).x << ", " << checkLater.at(i).y << "   ";
+		cout << checkLater.at(i) << "   ";
 	}
 	cout << endl;
 }
 
+void Miss(vector<Point> &locs, int index, Point p, vector<Point> &checkLater)
+{	
+	locs.erase(locs.begin() + index);
+	//call function to also remove adjacent spaces
+	removeAdjSpaces(locs, p.x, p.y, checkLater);
+	cout << p.x << ", " << p.y << " is a miss!" << endl;
+}
+
+
 //remove the missed space and the adjacent spaces, called by hit or miss
 void removeAdjSpaces(vector<Point> &locs, int x, int y, vector<Point> &checkLater)
 {
+	
 	int a = x - 1;
 	int b = x + 1;
 	int c = y - 1;
@@ -163,3 +224,4 @@ void findtheShip(vector<Point> &loc, int x, int y, vector<Point> &checkLater)
 
 }
 
+*/
