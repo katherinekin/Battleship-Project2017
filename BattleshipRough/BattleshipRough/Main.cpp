@@ -4,21 +4,17 @@
 #include<string>
 #include"Enemy.h"
 
->>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
+//>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 
 int main()
 {
 	// sample code for constructing and printing a point
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	Point samplePoint(2, 2);
 	cout << samplePoint << endl << endl;
 
-=======
-	Point samplePoint = Point(2, 2);
-	cout << samplePoint << endl << endl;
 
-
->>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
+//>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 	int row = 10;
 	int* board = new int[row*row];
 	int** temp = new int*[row];
