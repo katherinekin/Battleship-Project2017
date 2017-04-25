@@ -103,6 +103,7 @@ int main()
 	cout << "Press enter to allow the computer to move" << endl;
 	cin.get(userInput);
 
+	//can change to win condition
 	while (!(userInput == 'Q'))
 	{
 		comp.turn(temp, board);
