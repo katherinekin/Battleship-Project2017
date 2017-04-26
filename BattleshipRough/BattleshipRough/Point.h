@@ -11,5 +11,7 @@ struct Point
 	int y;
 	Point();
 	Point(int inst_x, int inst_y);
+	friend Point operator==(const Point& lhs, const Point& rhs);
 	friend ostream& operator<<(ostream& os, const Point& point);
+	
 };

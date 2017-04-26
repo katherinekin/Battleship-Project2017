@@ -1,30 +1,12 @@
 ﻿  Enemy.cpp
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(198): warning C4018: '<': signed/unsigned mismatch
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(3258): error C2678: binary '==': no operator found which takes a left-hand operand of type 'Point' (or there is no acceptable conversion)
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\random(2560): note: could be 'bool std::operator ==(const std::bernoulli_distribution &,const std::bernoulli_distribution &)'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\system_error(389): note: or       'bool std::operator ==(const std::error_condition &,const std::error_condition &) noexcept'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\system_error(381): note: or       'bool std::operator ==(const std::error_condition &,const std::error_code &) noexcept'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\system_error(373): note: or       'bool std::operator ==(const std::error_code &,const std::error_condition &) noexcept'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\system_error(365): note: or       'bool std::operator ==(const std::error_code &,const std::error_code &) noexcept'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\exception(339): note: or       'bool std::operator ==(const std::exception_ptr &,std::nullptr_t) throw()'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\exception(334): note: or       'bool std::operator ==(std::nullptr_t,const std::exception_ptr &) throw()'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\exception(329): note: or       'bool std::operator ==(const std::exception_ptr &,const std::exception_ptr &) throw()'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(3258): note: while trying to match the argument list '(Point, const Point)'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(3277): note: see reference to function template instantiation '_InIt std::_Find_unchecked1<_InIt,_Ty>(_InIt,_InIt,const _Ty &,std::false_type)' being compiled
-          with
-          [
-              _InIt=Point *,
-              _Ty=Point
-          ]
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(3286): note: see reference to function template instantiation '_InIt std::_Find_unchecked<Point*,_Ty>(_InIt,_InIt,const _Ty &)' being compiled
-          with
-          [
-              _InIt=Point *,
-              _Ty=Point
-          ]
-  c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(93): note: see reference to function template instantiation '_InIt std::find<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Point>>>,Point>(_InIt,_InIt,const _Ty &)' being compiled
-          with
-          [
-              _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Point>>>,
-              _Ty=Point
-          ]
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(96): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(104): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(113): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(120): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(134): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(142): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(155): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(162): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(228): warning C4018: '<': signed/unsigned mismatch
+  BattleshipRough.vcxproj -> C:\Users\Katherine\Documents\Visual Studio 2015\Projects\Battleship-Project2017\BattleshipRough\Debug\BattleshipRough.exe
+  BattleshipRough.vcxproj -> C:\Users\Katherine\Documents\Visual Studio 2015\Projects\Battleship-Project2017\BattleshipRough\Debug\BattleshipRough.pdb (Partial PDB)

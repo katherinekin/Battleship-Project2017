@@ -107,6 +107,7 @@ int main()
 	while (!(userInput == 'Q'))
 	{
 		comp.turn(temp, board);
+		cout << "Press enter to allow the computer to move" << endl;
 		cin.get(userInput);
 	} 
 
