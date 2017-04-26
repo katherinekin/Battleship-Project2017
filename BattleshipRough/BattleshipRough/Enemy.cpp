@@ -1,5 +1,6 @@
 #include <iostream>
 #include<random>
+#include<algorithm>
 #include<vector>
 #include<string>
 #include"Enemy.h"
@@ -32,15 +33,15 @@ void Enemy::turn(int **temp, int board[])
 	cout << "Hit enter for the computer to take a turn" << endl;
 	if (_state == 0)
 	{
-		HitOrMiss(temp, board);
+		RandomHitOrMiss(temp, board);
 	}
 	if (_state == 1)
 	{
-		//FindTheShip(temp, board);
+		FindTheShip(temp, board);
 	}
 
 }
-void Enemy::HitOrMiss(int **temp, int board[])
+void Enemy::RandomHitOrMiss(int **temp, int board[])
 {
 	int index = rand() % _locs.size();
 
@@ -83,15 +84,65 @@ void Enemy::HitOrMiss(int **temp, int board[])
 	}
 	cout << endl;
 }
+
+void Enemy::FocusedHitOrMiss(int **temp, int board[], int index, Point p)
+{
+	int x = p.x;
+	int y = p.y;
+	
+	//FIX THIS!!
+	if(find(_locs.begin(), _locs.end(), p) != _locs.end() )
+	{
+		index = index;	//findShip(i) was in _locs
+	}
+	else 
+	{
+		index = index - _locs.size();	//findShip(i) was in _checkLater
+	}
+
+	if (temp[x][y] == 1)
+	{
+		cout << p << endl;
+		cout << "FOCUSED HIT" << endl;
+		//check if the ship has sunk
+		//if not sunk, call function to look for ship
+		Hit(index, p);
+	}
+	else
+	{
+		cout << p << endl;
+		cout << "FOCUSED MISS" << endl;
+
+		//write this in a new function, that calls adjacent spaces
+		Miss(index, p);
+	}
+}
+
 void Enemy::Hit(int index, Point p)
 {
 	_hits.push_back(p);
 	//should call the draw function to change graphics of the board corresponding to HIT
-	_locs.erase(_locs.begin() + index);
+
+	if (find(_locs.begin(), _locs.end(), p) != _locs.end())
+	{
+		_locs.erase(_locs.begin() + index);
+	}	
+	else
+	{
+		_checkLater.erase(_checkLater.begin() + index);
+	}
 }
 void Enemy::Miss(int index, Point p)
 {
-	_locs.erase(_locs.begin() + index);	//removes the missed space from spaces to check permanently
+	//removes the missed space from spaces to check permanently
+	if (find(_locs.begin(), _locs.end(), p) != _locs.end())	
+	{
+		_locs.erase(_locs.begin() + index);
+	}
+	else
+	{
+		_checkLater.erase(_checkLater.begin() + index);
+	}
 	//should call the draw function to change graphics of the board corresponding to MISS
 	//call function to also remove adjacent spaces
 	removeAdjSpaces(p.x, p.y);
@@ -111,25 +162,7 @@ void Enemy::removeAdjSpaces(int x, int y)
 	for (int i = _locs.size() - 1; i >= 0; i--)
 	{
 		Point p = _locs.at(i);
-		if (p.x == a && p.y == y)
-		{
-			_locs.erase(_locs.begin() + i);
-			_checkLater.push_back(p);
-			cout << "Removed " << p << endl;
-		}
-		if (p.x == b && p.y == y)
-		{
-			_locs.erase(_locs.begin() + i);
-			_checkLater.push_back(p);
-			cout << "Removed " << p << endl;
-		}
-		if (p.x == x && p.y == c)
-		{
-			_locs.erase(_locs.begin() + i);
-			_checkLater.push_back(p);
-			cout << "Removed " << p << endl;
-		}
-		if (p.x == x && p.y == d)
+		if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
 		{
 			_locs.erase(_locs.begin() + i);
 			_checkLater.push_back(p);
@@ -138,71 +171,48 @@ void Enemy::removeAdjSpaces(int x, int y)
 	}
 }
 
-/* Need to fix
+
 void Enemy::FindTheShip(int **temp, int board[])
 {
+	//create a new vector findShip that combines locs and checkLater, don't sort
+	vector<Point> findShip = _locs;
+	findShip.insert(findShip.end(), _checkLater.begin(), _checkLater.end());	//concatenates _locs and _checkLater, index in for Loop corresponds
+
+
+	int x, y;
+	Point p;
+	//go by number of ships before state change
+	//go by number of hit spots (better)
+	//finding the first two spots most important
+	//edge case: if there are two ships side by side
+	
+	p = _hits.back();	//returns the last Point in _hits
+	x = p.x;
+	y = p.y;
+
 	//(a, y) (b, y) (x, c) (y, d)
+	//create a new vector that holds all the spots with hits
 	int a = x - 1;
 	int b = x + 1;
 	int c = y - 1;
 	int d = y + 1;
+	for (int index = 0; index < findShip.size(); index++)
+	{
+		//change this to switch, and break
+		if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
+		{
+			FocusedHitOrMiss(temp, board, index, p);
+			break;	//computer can only guess one spot per turn!
+		}
+	}
 
-	int ship = 1;
-	//create a new vector that holds all the spots with hits
 	//if this vector is empty, _state becomes 0
-
 	if (_hits.size() < 1)
 	{
 		_state = 0;
 	}
 
-	//create a new vector findShip that combines locs and checkLater, don't sort
-	vector<Point> findShip = _locs;
-	findShip.insert(findShip.end(), _checkLater.begin(), _checkLater.end());
-
 	//keep going until a ship has been sunk, if ship not sunk
 	//while number of ships is not less than current number and number of ships is not equal to zero
-	
-
 	//for loop that runs through findShip for combos of 
 }
-*/
-
-/*Move this to a new header file
-void Enemy::ShipInVector(vector<Point> v, Point p)
-{
-	int a = x - 1;
-	int b = x + 1;
-	int c = y - 1;
-	int d = y + 1;
-
-	for (int i = _locs.size() - 1; i >= 0; i--)
-	{
-		Point p = _locs.at(i);
-		if (p.x == a && p.y == y)
-		{
-			_locs.erase(_locs.begin() + i);
-			_checkLater.push_back(p);
-			cout << "Removed " << p << endl;
-		}
-		if (p.x == b && p.y == y)
-		{
-			_locs.erase(_locs.begin() + i);
-			_checkLater.push_back(p);
-			cout << "Removed " << p << endl;
-		}
-		if (p.x == x && p.y == c)
-		{
-			_locs.erase(_locs.begin() + i);
-			_checkLater.push_back(p);
-			cout << "Removed " << p << endl;
-		}
-		if (p.x == x && p.y == d)
-		{
-			_locs.erase(_locs.begin() + i);
-			_checkLater.push_back(p);
-			cout << "Removed " << p << endl;
-		}
-	}
-}
-*/

@@ -16,12 +16,13 @@ public:
 	Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state);
 
 	void turn(int **temp, int board[]);
-	void HitOrMiss(int **temp, int board[]);
+	void RandomHitOrMiss(int **temp, int board[]);
 	void Hit(int index, Point p);
 	void Miss(int index, Point p);
 	void removeAdjSpaces(int x, int y);
 	void FindTheShip(int **temp, int board[]);
-	void ShipInVector(vector<Point> v, Point p);
+	void FocusedHitOrMiss(int **temp, int board[], int index, Point p);
+	//void ShipInVector(vector<Point> v, Point p);
 		
 private:
 	vector<Point> _locs;
