@@ -3,16 +3,37 @@
 #include<vector>
 #include<string>
 #include"Enemy.h"
+#include "Board.h"
 
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 
 int main()
 {
-	// sample code for constructing and printing a point
 //<<<<<<< HEAD
-	Point samplePoint(2, 2);
-	cout << samplePoint << endl << endl;
 
+
+
+	/*
+	SAMPLE BOARD AND USAGE
+	//set some of the values to 1 (arbitrary ships)
+	temp[1][0] = 1;
+	temp[1][1] = 1;
+	temp[1][2] = 1;
+	
+	Is equivalent to:
+	*/
+	Board sampleBoard = Board();
+	cout << sampleBoard;
+
+	Point a = Point(1, 0);
+	Point b = Point(1, 1);
+	Point c = Point(1, 2);
+
+	sampleBoard.setPointState(a, 1);
+	sampleBoard.setPointState(b, 1);
+	sampleBoard.setPointState(c, 1);
+
+	cout << sampleBoard;
 
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 	int row = 10;
@@ -96,8 +117,8 @@ int main()
 	}
 
 	//initialize comp
-	Enemy comp(locs, checkLater, state);
-
+	//Enemy comp(locs, checkLater, state);
+	Enemy comp(sampleBoard.getLocs(), sampleBoard.getCheckLater(), state);
 	//computer keeps going until player exits or types 'Q'
 	char userInput;
 	cout << "Press enter to allow the computer to move" << endl;
@@ -106,7 +127,9 @@ int main()
 	//can change to win condition
 	while (!(userInput == 'Q'))
 	{
-		comp.turn(temp, board);
+		//comp.turn(temp, board);
+		comp.turn(sampleBoard.getTemp(), sampleBoard.getBoardArray());
+		
 		cout << "Press enter to allow the computer to move" << endl;
 		cin.get(userInput);
 	} 

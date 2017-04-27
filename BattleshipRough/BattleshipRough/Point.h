@@ -1,5 +1,5 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#ifndef POINT_H
+#define POINT_H
 #include <ostream>
 
 using namespace std;
@@ -17,4 +17,4 @@ struct Point
 	friend ostream& operator<<(ostream& os, const Point& point);
 	
 };
-#endif //ENEMY_H
+#endif //POINT_H

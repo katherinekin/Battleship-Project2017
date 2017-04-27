@@ -1,12 +1,3 @@
-﻿  Enemy.cpp
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(96): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(104): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(113): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(120): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(134): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(142): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(155): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(162): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(228): warning C4018: '<': signed/unsigned mismatch
-  BattleshipRough.vcxproj -> C:\Users\Katherine\Documents\Visual Studio 2015\Projects\Battleship-Project2017\BattleshipRough\Debug\BattleshipRough.exe
-  BattleshipRough.vcxproj -> C:\Users\Katherine\Documents\Visual Studio 2015\Projects\Battleship-Project2017\BattleshipRough\Debug\BattleshipRough.pdb (Partial PDB)
+﻿  Main.cpp
+  BattleshipRough.vcxproj -> C:\Users\breadslice\Battleship\bs2\BattleshipRough\Debug\BattleshipRough.exe
+  BattleshipRough.vcxproj -> C:\Users\breadslice\Battleship\bs2\BattleshipRough\Debug\BattleshipRough.pdb (Partial PDB)
