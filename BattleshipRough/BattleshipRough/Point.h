@@ -11,6 +11,7 @@ struct Point
 
 	int x;
 	int y;
+	char xChar;
 	Point();
 	Point(int inst_x, int inst_y);
 	friend Point operator==(const Point& lhs, const Point& rhs);
