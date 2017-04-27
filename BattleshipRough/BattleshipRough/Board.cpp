@@ -11,7 +11,7 @@ Board::Board()
 	
 	_boardArray = new int[ROW*ROW];
 	_temp = new int*[ROW];
-	bool state = 0;
+	_state = 0;
 
 	for (int r = 0; r < ROW; r++)
 	{
@@ -84,6 +84,16 @@ void Board::setBoardArray(int * boardArray)
 int ** Board::getTemp()
 {
 	return _temp;
+}
+
+void Board::setState(bool state)
+{
+	_state = state;
+}
+
+bool Board::getState()
+{
+	return _state;
 }
 
 void Board::setTemp(int ** temp)
