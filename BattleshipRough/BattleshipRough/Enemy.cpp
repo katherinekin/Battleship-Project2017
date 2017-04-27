@@ -109,19 +109,7 @@ void Enemy::Hit(int index, Point p)
 		}
 	}
 
-	//Print out _locs and _checkLater
-	for (int i = 0; i < _locs.size(); i++)
-	{
-		//cout << "My vector contains " << locs.at(i);
-		cout << _locs.at(i) << "   ";
-	}
-	cout << endl;
-
-	for (int i = 0; i < _checkLater.size(); i++)
-	{
-		//cout << "My vector contains " << locs.at(i);
-		cout << _checkLater.at(i) << "   ";
-	}
+	Print();
 	cout << endl;
 }
 
@@ -151,20 +139,7 @@ void Enemy::Miss(int index, Point p)
 	//call function to also remove adjacent spaces
 	removeAdjSpaces(p.x, p.y);
 
-	//Print out _locs and _checkLater
-	for (int i = 0; i < _locs.size(); i++)
-	{
-		//cout << "My vector contains " << locs.at(i);
-		cout << _locs.at(i) << "   ";
-	}
-	cout << endl;
-
-	for (int i = 0; i < _checkLater.size(); i++)
-	{
-		//cout << "My vector contains " << locs.at(i);
-		cout << _checkLater.at(i) << "   ";
-	}
-	cout << endl;
+	Print();
 }
 void Enemy::removeAdjSpaces(int x, int y)
 {
@@ -244,5 +219,29 @@ void Enemy::FindTheShip(int **temp, int board[])
 
 	//keep going until a ship has been sunk, if ship not sunk
 	//while number of ships is not less than current number and number of ships is not equal to zero
-	//for loop that runs through findShip for combos of 
+}
+void Enemy::Print()	//Prints the vectors _locs, _checkLater, and _hits for troubleshooting
+{
+	//Print out _locs and _checkLater
+	cout << "_locs contains "<<endl;
+	for (int i = 0; i < _locs.size(); i++)
+	{
+		//cout << "My vector contains " << locs.at(i);
+		cout << _locs.at(i) << "   ";
+	}
+	cout << endl;
+	cout << "_checkLater contains "<<endl;
+	for (int i = 0; i < _checkLater.size(); i++)
+	{
+		//cout << "My vector contains " << locs.at(i);
+		cout << _checkLater.at(i) << "   ";
+	}
+	cout << endl;
+	cout << "_hits contains "<<endl;
+	for (int i = 0; i < _hits.size(); i++)
+	{
+		//cout << "My vector contains " << locs.at(i);
+		cout << _hits.at(i) << "   ";
+	}
+	cout << endl;
 }

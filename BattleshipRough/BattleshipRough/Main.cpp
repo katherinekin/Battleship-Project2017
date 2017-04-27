@@ -4,6 +4,8 @@
 #include<string>
 #include"Enemy.h"
 
+using namespace std;
+
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 
 int main()
@@ -11,7 +13,9 @@ int main()
 	// sample code for constructing and printing a point
 //<<<<<<< HEAD
 	Point samplePoint(2, 2);
-	cout << samplePoint << endl << endl;
+	Point testPoint(2, 2);
+	//if (testPoint == samplePoint)
+		//cout << "True!"<<endl;
 
 
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5

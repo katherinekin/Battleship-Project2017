@@ -24,6 +24,8 @@ public:
 
 	void removeAdjSpaces(int x, int y);
 	void FindTheShip(int **temp, int board[]);
+
+	void Print();
 	
 		
 private:
