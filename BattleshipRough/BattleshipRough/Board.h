@@ -32,7 +32,7 @@ public:
 	void setState(bool state);	// A state of 1 indicates the computer should be
 	bool getState();			// making targeted attacks following a 'hit'
 
-	bool addShip(Ship s);
+	bool addShip(const Ship s);
 
 	friend ostream& operator<<(ostream& os, const Board board);
 
@@ -42,4 +42,5 @@ private:
 	vector<Point> _locs = vector<Point>(100);	// Points still to target.
 	vector<Point> _checkLater;					// Points to check later
 	bool _state;								// Returns whether or not the computer is making targeted attacks
+	vector<Ship> _ships;
 };

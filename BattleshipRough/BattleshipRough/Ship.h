@@ -24,6 +24,9 @@ public:
 	bool getVertical();
 	void setVertical(bool vertical);
 
+	vector<Point> getPoints();
+	void setPoints(vector<Point> points);
+
 private:
 	int _noOfSpaces;
 	string _shipName;

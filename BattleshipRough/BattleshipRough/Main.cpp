@@ -10,28 +10,43 @@ void splashScreen();
 
 int main()
 {
-	Ship sampleShip = Ship(3, "Battleship", 'b');
-	splashScreen();
-	/*
-	SAMPLE BOARD AND USAGE
-	//set some of the values to 1 (arbitrary ships)
-	temp[1][0] = 1;
-	temp[1][1] = 1;
-	temp[1][2] = 1;
-	
-	Is equivalent to:
-	*/
 	Board sampleBoard = Board();
+	
+	/*
 	Point a = Point(1, 0);
 	Point b = Point(1, 1);
 	Point c = Point(1, 2);
-
+	cout << a << endl;
+	cout << b << endl;
+	cout << c << endl;
 	sampleBoard.setPointState(a, 1);
 	sampleBoard.setPointState(b, 1);
 	sampleBoard.setPointState(c, 1);
+	*/
 
-	cout << "Printing the new board..." << endl << sampleBoard;
+	splashScreen();
+	bool run = true;
+	while (run) 
+	{
+		cout << sampleBoard;
+		Ship sampleShip = Ship(3, "Battleship", 'b');
+		if (sampleBoard.addShip(sampleShip) == true)
+			run = false;
+	}
+
+	run = true;
+	while (run)
+	{
+		cout << sampleBoard;
+		Ship sampleShip2 = Ship(5, "Carrier", 'c');
+		if (sampleBoard.addShip(sampleShip2) == true)
+		{
+			
+			run = false;
+		}
+	}
 	cout << sampleBoard;
+
 	bool state = 0;
 
 	//initialize comp

@@ -42,7 +42,7 @@ Board::~Board()
 
 void Board::setPointState(Point p, int state)
 {
-	_temp[p.x][p.y] = state;
+	_temp[p.x][p.y] = state; // Had to put y in the first array?
 }
 
 int Board::getPointState(Point p)
@@ -98,10 +98,25 @@ bool Board::getState()
 
 bool Board::addShip(Ship s)
 {
+	vector<Point> tempPoints = s.getPoints();
 	// Check if any point the ship will occupy is already occupied
-	// OR if the ship runs off the board, return false
+	for (int i = 0; i < s.getNoOfSpaces(); i++)
+	{
+		Point tempPoint = tempPoints[i];
+		if (_temp[tempPoint.x][tempPoint.y] > 0)
+		{
+			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl;
+			return false;
+		}
+	}
 	// Add the ship object to the temp 2-D array, return true
-	return false;
+	for (int i = 0; i < s.getNoOfSpaces(); i++)
+	{
+		Point tempPoint = tempPoints[i];
+		this->setPointState(tempPoint, 1);
+	}
+	
+	return true;
 }
 
 void Board::setTemp(int ** temp)
@@ -143,7 +158,7 @@ ostream & operator<<(ostream & os, const Board board)
 		for (int c = 0; c < ROW; c++)
 		{
 			// Data Line
-			os << board._temp[r][c] << " | ";
+			os << board._temp[c][r] << " | ";
 		}
 		os << endl;
 		os << "   |";
