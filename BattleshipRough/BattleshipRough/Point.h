@@ -14,7 +14,6 @@ struct Point
 	char xChar;
 	Point();
 	Point(int inst_x, int inst_y);
-	Point(char inst_x, int inst_y);
 
 	void userInput();
 	int xStringToIndex(char& c);

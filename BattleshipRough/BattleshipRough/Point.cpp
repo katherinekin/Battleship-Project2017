@@ -15,11 +15,6 @@ Point:: Point(int inst_x, int inst_y)
 	y = inst_y;
 }
 
-Point::Point(char inst_x, int inst_y)
-{
-
-}
-
 void Point::userInput()
 {
 	int yI, xI;

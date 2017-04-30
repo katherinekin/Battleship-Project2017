@@ -10,7 +10,27 @@ void splashScreen();
 
 int main()
 {
+	Board sampleBoard = Board();
+	
+	/*
+	Point a = Point(1, 0);
+	Point b = Point(1, 1);
+	Point c = Point(1, 2);
+	cout << a << endl;
+	cout << b << endl;
+	cout << c << endl;
+	sampleBoard.setPointState(a, 1);
+	sampleBoard.setPointState(b, 1);
+	sampleBoard.setPointState(c, 1);
+	*/
+	cout << sampleBoard;
+	
 	Ship sampleShip = Ship(3, "Battleship", 'b');
+	sampleBoard.addShip(sampleShip);
+	cout << sampleBoard;
+	Ship sampleShip2 = Ship(5, "Carrier", 'b');
+	sampleBoard.addShip(sampleShip2);
+	cout << sampleBoard;
 	splashScreen();
 	/*
 	SAMPLE BOARD AND USAGE
@@ -21,14 +41,6 @@ int main()
 	
 	Is equivalent to:
 	*/
-	Board sampleBoard = Board();
-	Point a = Point(1, 0);
-	Point b = Point(1, 1);
-	Point c = Point(1, 2);
-
-	sampleBoard.setPointState(a, 1);
-	sampleBoard.setPointState(b, 1);
-	sampleBoard.setPointState(c, 1);
 
 	cout << "Printing the new board..." << endl << sampleBoard;
 	cout << sampleBoard;
