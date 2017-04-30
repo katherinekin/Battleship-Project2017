@@ -15,7 +15,7 @@ struct Point
 	Point();
 	Point(int inst_x, int inst_y);
 
-	void userInput();
+	void userAssigned();
 	int xStringToIndex(char& c);
 	int yInputToIndex();
 	friend Point operator==(const Point& lhs, const Point& rhs);

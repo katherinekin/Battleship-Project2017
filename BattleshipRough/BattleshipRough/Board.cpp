@@ -158,7 +158,7 @@ ostream & operator<<(ostream & os, const Board board)
 		for (int c = 0; c < ROW; c++)
 		{
 			// Data Line
-			os << board._temp[r][c] << " | ";
+			os << board._temp[c][r] << " | ";
 		}
 		os << endl;
 		os << "   |";

@@ -11,7 +11,7 @@ Ship::Ship(int noOfSpaces, string shipName, char shipChar)
 	{
 		cout << "Select a starting location for your " << shipName << endl;
 		cout << "It takes up " << noOfSpaces << " spaces." << endl;
-		_startingPoint.userInput();
+		_startingPoint.userAssigned();
 		cout << _startingPoint << endl;
 		string input;
 		bool run2 = true;
@@ -75,6 +75,8 @@ Ship::Ship(int noOfSpaces, string shipName, char shipChar)
 		cout << _points[i] << " ";
 	}
 	cout << endl;
+	system("pause");
+	system("cls");
 }
 
 int Ship::getNoOfSpaces()
