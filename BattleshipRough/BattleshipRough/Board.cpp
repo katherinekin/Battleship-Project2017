@@ -40,14 +40,14 @@ Board::~Board()
 	//Destructor	
 }
 
-void Board::setPointState(Point p, bool state)
+void Board::setPointState(Point p, int state)
 {
 	_temp[p.x][p.y] = state;
 }
 
-bool Board::getPointState(Point p)
+int Board::getPointState(Point p)
 {
-	bool state = _temp[p.x][p.y];
+	int state = _temp[p.x][p.y];
 	return state;
 }
 
@@ -94,6 +94,14 @@ void Board::setState(bool state)
 bool Board::getState()
 {
 	return _state;
+}
+
+bool Board::addShip(Ship s)
+{
+	// Check if any point the ship will occupy is already occupied
+	// OR if the ship runs off the board, return false
+	// Add the ship object to the temp 2-D array, return true
+	return false;
 }
 
 void Board::setTemp(int ** temp)
