@@ -4,12 +4,13 @@
 #include<string>
 #include"Enemy.h"
 #include "Board.h"
-
+#include "Ship.h"
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 void splashScreen();
 
 int main()
 {
+	Ship sampleShip = Ship(3, "Battleship", 'b');
 	splashScreen();
 	/*
 	SAMPLE BOARD AND USAGE
@@ -21,8 +22,6 @@ int main()
 	Is equivalent to:
 	*/
 	Board sampleBoard = Board();
-	cout << "Printing an empty board..." << endl << sampleBoard;
-
 	Point a = Point(1, 0);
 	Point b = Point(1, 1);
 	Point c = Point(1, 2);
