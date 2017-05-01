@@ -1,6 +1,5 @@
-﻿  Ship.cpp
-c:\users\breadslice\battleship\bs4\battleshiprough\battleshiprough\ship.cpp(73): warning C4018: '<': signed/unsigned mismatch
-  Main.cpp
+﻿  Main.cpp
+  Board.cpp
   Generating Code...
   BattleshipRough.vcxproj -> C:\Users\breadslice\Battleship\bs4\BattleshipRough\Debug\BattleshipRough.exe
   BattleshipRough.vcxproj -> C:\Users\breadslice\Battleship\bs4\BattleshipRough\Debug\BattleshipRough.pdb (Partial PDB)

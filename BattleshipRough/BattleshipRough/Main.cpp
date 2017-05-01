@@ -29,7 +29,7 @@ int main()
 	while (run) 
 	{
 		cout << sampleBoard;
-		Ship sampleShip = Ship(3, "Battleship", 'b');
+		Ship sampleShip = Ship(4, "Battleship", 'b');
 		if (sampleBoard.addShip(sampleShip) == true)
 			run = false;
 	}

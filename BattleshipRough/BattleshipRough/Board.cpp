@@ -158,7 +158,18 @@ ostream & operator<<(ostream & os, const Board board)
 		for (int c = 0; c < ROW; c++)
 		{
 			// Data Line
-			os << board._temp[c][r] << " | ";
+			switch (board._temp[c][r])
+			{
+			case 0:
+				os << "  | ";
+				break;
+			case 1:
+				os << char(178) << " | ";
+				break;
+			default:
+				os << "ERRR";
+				break;
+			}
 		}
 		os << endl;
 		os << "   |";
