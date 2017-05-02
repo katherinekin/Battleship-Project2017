@@ -74,13 +74,11 @@ void Enemy::FocusedHitOrMiss(int **temp, int board[], int index, Point p)
 
 	if (temp[x][y] == 1)	//If ship is there
 	{
-		cout << p << endl;
 		cout << "FOCUSED HIT" << endl;
 		Hit(index, p);
 	}
 	else
 	{
-		cout << p << endl;
 		cout << "FOCUSED MISS" << endl;
 		Miss(index, p);
 	}
