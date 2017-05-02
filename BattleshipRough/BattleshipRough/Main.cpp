@@ -3,14 +3,38 @@
 #include<vector>
 #include<string>
 #include"Enemy.h"
+<<<<<<< HEAD
 #include "Board.h"
 #include "Ship.h"
+=======
+
+using namespace std;
+
+>>>>>>> Katherine2
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 void splashScreen();
 
 int main()
 {
+<<<<<<< HEAD
 	Board sampleBoard = Board();
+=======
+	// sample code for constructing and printing a point
+//<<<<<<< HEAD
+	Point samplePoint(2, 2);
+	Point testPoint(2, 2);
+	//if (testPoint == samplePoint)
+		//cout << "True!"<<endl;
+
+
+//>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
+	int row = 10;
+	int* board = new int[row*row];
+	int** temp = new int*[row];
+	vector<Point> locs(100);
+	vector<Point> checkLater;
+	bool state = 0;
+>>>>>>> Katherine2
 	
 	/*
 	Point a = Point(1, 0);
