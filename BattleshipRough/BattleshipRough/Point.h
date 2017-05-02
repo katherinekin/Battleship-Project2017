@@ -1,10 +1,10 @@
 #ifndef POINT_H
 #define POINT_H
-<<<<<<< HEAD
+//<<<<<<< HEAD
 #include <iostream>
-=======
+//=======
 #include <ostream>
->>>>>>> Katherine2
+//>>>>>>> Katherine2
 
 using namespace std;
 
@@ -18,15 +18,15 @@ struct Point
 	char xChar;
 	Point();
 	Point(int inst_x, int inst_y);
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
 	void userAssigned();
 	int xStringToIndex(char& c);
 	int yInputToIndex();
 	friend Point operator==(const Point& lhs, const Point& rhs);
-=======
+//=======
 	bool operator==(const Point& rhs) const;
->>>>>>> Katherine2
+//>>>>>>> Katherine2
 	friend ostream& operator<<(ostream& os, const Point& point);
 
 };

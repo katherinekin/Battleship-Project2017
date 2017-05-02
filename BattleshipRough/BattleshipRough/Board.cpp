@@ -1,4 +1,4 @@
-/*
+
 #include "Board.h"
 #include <iostream>
 
@@ -180,4 +180,3 @@ ostream & operator<<(ostream & os, const Board board)
 	}
 	return os;
 }
-*/

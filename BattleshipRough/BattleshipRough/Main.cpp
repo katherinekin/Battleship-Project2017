@@ -3,22 +3,22 @@
 #include<vector>
 #include<string>
 #include"Enemy.h"
-<<<<<<< HEAD
+//<<<<<<< HEAD
 #include "Board.h"
 #include "Ship.h"
-=======
+//=======
 
 using namespace std;
 
->>>>>>> Katherine2
+//>>>>>>> Katherine2
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 void splashScreen();
 
 int main()
 {
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	Board sampleBoard = Board();
-=======
+//=======
 	// sample code for constructing and printing a point
 //<<<<<<< HEAD
 	Point samplePoint(2, 2);
@@ -33,8 +33,8 @@ int main()
 	int** temp = new int*[row];
 	vector<Point> locs(100);
 	vector<Point> checkLater;
-	bool state = 0;
->>>>>>> Katherine2
+	
+//>>>>>>> Katherine2
 	
 	/*
 	Point a = Point(1, 0);
