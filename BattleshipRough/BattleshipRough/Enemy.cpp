@@ -24,7 +24,9 @@ Enemy::Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state)
 	_locs = locs;
 	_checkLater = checkLater;
 	_hits;
+	_misses;
 	_state = state;
+	_lastStrike;
 }
 	//
 void Enemy::turn(int **temp, int board[])
@@ -65,6 +67,7 @@ void Enemy::RandomHitOrMiss(int **temp, int board[])
 		Miss(index, p);
 		_state = 0;
 	}
+	_lastStrike = p;
 }
 
 void Enemy::FocusedHitOrMiss(int **temp, int board[], int index, Point p)
@@ -82,6 +85,7 @@ void Enemy::FocusedHitOrMiss(int **temp, int board[], int index, Point p)
 		cout << "FOCUSED MISS" << endl;
 		Miss(index, p);
 	}
+	_lastStrike = p;
 }
 
 void Enemy::Hit(int index, Point p)
@@ -117,6 +121,8 @@ void Enemy::Miss(int index, Point p)
 	//check if p is in _locs or _checkLater before deleting
 	int x = p.x;
 	int y = p.y;
+	
+	_misses.push_back(p);
 	for (int i = 0; i < _locs.size(); i++)
 	{
 		if (x == _locs.at(i).x && y == _locs.at(i).y)
@@ -242,4 +248,17 @@ void Enemy::Print()	//Prints the vectors _locs, _checkLater, and _hits for troub
 		cout << _hits.at(i) << "   ";
 	}
 	cout << endl;
+	cout << "_misses contains " << endl;
+	for (int i = 0; i < _misses.size(); i++)
+	{
+		//cout << "My vector contains " << locs.at(i);
+		cout << _misses.at(i) << "   ";
+	}
+	cout << endl;
 }
+
+Point Enemy::getLastStrike()
+{
+	return _lastStrike;
+}
+

@@ -1,23 +1,30 @@
 #include "Ship.h"
 #include <iostream>
 using namespace std;
-Ship::Ship(int noOfSpaces, string shipName, char shipChar)
+Ship::Ship()
+{
+	_noOfSpaces = 0;
+	_shipName = "";
+	_vertical, _sunk;
+	_startingPoint;
+	_points;
+}
+Ship::Ship(int noOfSpaces, string shipName)
 {
 	_noOfSpaces = noOfSpaces;
 	_shipName = shipName;
-	_shipChar = shipChar;
+
 	bool run = true;
 	while (run)
 	{
 		cout << "Select a starting location for your " << shipName << endl;
 		cout << "It takes up " << noOfSpaces << " spaces." << endl;
 		_startingPoint.userAssigned();
-		cout << _startingPoint << endl;
 		string input;
 		bool run2 = true;
 		while (run2)
 		{
-			cout << "Horizontal or Vertical?" << endl << "Type H or V and press enter." << endl;
+			cout << "Horizontal or Vertical? H/V: ";
 			cin >> input;
 			if (input[0] == 'h' || input[0] == 'H')
 			{
@@ -31,7 +38,7 @@ Ship::Ship(int noOfSpaces, string shipName, char shipChar)
 			}
 			else
 			{
-				cout << "Try Again." << endl;
+				cout << "Input error. Try again." << endl;
 				cin.clear();
 				cin.ignore(10000, '\n');
 			}
@@ -42,11 +49,8 @@ Ship::Ship(int noOfSpaces, string shipName, char shipChar)
 		else if (_vertical)
 			endingPoint = _startingPoint.y + _noOfSpaces;
 		else
-		{
 			cout << "The vertical method variable was not set. Try again." << endl;
-		}
-
-		if (endingPoint < 10 && endingPoint >= 0)
+		if (endingPoint <= 10 && endingPoint >= 0)
 			run = false;
 		else
 			cout << "The ship goes out of bounds! Try again." << endl;
@@ -69,14 +73,9 @@ Ship::Ship(int noOfSpaces, string shipName, char shipChar)
 			_points.push_back(temp);
 		}
 	}
-	cout << "Your " << shipName << " will occupy the following points: ";
-	for (int i = 0; i < _points.size(); i++)
-	{
-		cout << _points[i] << " ";
-	}
-	cout << endl;
-	system("pause");
-	system("cls");
+	system("cls"); 
+	cin.clear();
+	cin.ignore(10000, '\n');
 }
 
 int Ship::getNoOfSpaces()

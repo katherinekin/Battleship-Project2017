@@ -43,7 +43,7 @@ Board::~Board()
 
 void Board::setPointState(Point p, int state)
 {
-	_temp[p.x][p.y] = state; // Had to put y in the first array?
+	_temp[p.x][p.y] = state;
 }
 
 int Board::getPointState(Point p)
@@ -106,7 +106,6 @@ bool Board::addShip(Ship s)
 		Point tempPoint = tempPoints[i];
 		if (_temp[tempPoint.x][tempPoint.y] > 0)
 		{
-			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl;
 			return false;
 		}
 	}
@@ -166,6 +165,12 @@ ostream & operator<<(ostream & os, const Board board)
 				break;
 			case 1:
 				os << char(178) << " | ";
+				break;
+			case 5:
+				os << "O | ";
+				break;
+			case 9:
+				os << "X | ";
 				break;
 			default:
 				os << "ERRR";

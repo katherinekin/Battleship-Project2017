@@ -25,7 +25,7 @@ void Point::userAssigned()
 		cout << "Enter Starting Point" << endl;
 		xI = xStringToIndex(xC);
 		yI = yInputToIndex();
-		cout << "Did you mean " << xC << yI + 1 << "? Y/N" << endl;
+		cout << "Did you mean " << xC << yI + 1 << "? Y/N: ";
 		string input;
 		cin.clear();
 		cin.ignore(10000, '\n');
@@ -35,7 +35,6 @@ void Point::userAssigned()
 			run = false;
 		}
 	}
-	cout << xI << yI << endl;
 	
 	this->xChar = xC;
 	this->x = xI;
