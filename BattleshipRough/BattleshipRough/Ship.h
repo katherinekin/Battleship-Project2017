@@ -10,7 +10,7 @@ class Ship
 {
 public:
 	Ship();
-	Ship(int noOfSpaces, string shipName, char shipChar);
+	Ship(int noOfSpaces, string shipName);
 
 	int getNoOfSpaces();
 	void setNoOfSpaces(int noOfSpaces);

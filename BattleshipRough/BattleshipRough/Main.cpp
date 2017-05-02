@@ -13,6 +13,7 @@ using namespace std;
 //>>>>>>> Katherine2
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 void splashScreen();
+void shipAddition(Board board, int spaces, string name);
 
 int main()
 {
@@ -28,12 +29,14 @@ int main()
 
 
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
+/*
 	int row = 10;
 	int* board = new int[row*row];
 	int** temp = new int*[row];
 	vector<Point> locs(100);
 	vector<Point> checkLater;
-	
+*/
+// Code no longer necessary.
 //>>>>>>> Katherine2
 	
 	/*
@@ -49,26 +52,29 @@ int main()
 	*/
 
 	splashScreen();
-	bool run = true;
-	while (run) 
+	shipAddition(sampleBoard, 5, "Carrier");
+	shipAddition(sampleBoard, 4, "Battleship");
+	shipAddition(sampleBoard, 3, "Cruiser");
+	shipAddition(sampleBoard, 3, "Submarine");
+	shipAddition(sampleBoard, 2, "Destroyer");
+
+	/*
+	while (run)
 	{
 		cout << sampleBoard;
-		Ship sampleShip = Ship(4, "Battleship", 'b');
-		if (sampleBoard.addShip(sampleShip) == true)
+		Ship sampleShip2 = Ship(5, "Carrier");
+		if (sampleBoard.addShip(sampleShip2) == true)
 			run = false;
 	}
-
 	run = true;
 	while (run)
 	{
 		cout << sampleBoard;
-		Ship sampleShip2 = Ship(5, "Carrier", 'c');
-		if (sampleBoard.addShip(sampleShip2) == true)
-		{
-			
+		Ship sampleShip = Ship(4, "Battleship");
+		if (sampleBoard.addShip(sampleShip) == true)
 			run = false;
-		}
 	}
+	*/
 	cout << sampleBoard;
 
 	bool state = 0;
@@ -80,16 +86,28 @@ int main()
 	char userInput;
 	cout << "Press enter to allow the computer to move" << endl;
 	cin.get(userInput);
+	system("cls");
+
+	Point ls;
 
 	//can change to win condition
 	while (!(userInput == 'Q'))
 	{
+		cin.clear();
+		//cin.ignore();
 		//comp.turn(temp, board);
 		comp.turn(sampleBoard.getTemp(), sampleBoard.getBoardArray());
-		
+		ls = comp.getLastStrike();
+		if (sampleBoard.getPointState(ls) == 1)
+			sampleBoard.setPointState(ls, 9);
+		else
+			sampleBoard.setPointState(ls, 5);
+		cout << sampleBoard;
 		cout << "Press enter to allow the computer to move" << endl;
 		cin.get(userInput);
-	} 
+		system("cls");
+
+} 
 
 	return 0;
 }
@@ -107,4 +125,22 @@ void splashScreen()
 	cout << "For the best experience, maximize your console window." << endl << endl;
 	system("pause");
 	system("cls");
+}
+
+void shipAddition(Board board, int spaces, string name)
+{
+	bool run = true;
+	cout << board;
+	while (run)
+	{
+		Ship sampleShip2 = Ship(spaces, name);
+		if (board.addShip(sampleShip2) == true)
+			run = false;
+		else
+		{
+			system("cls");
+			cout << board;
+			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl;
+		}
+	}
 }

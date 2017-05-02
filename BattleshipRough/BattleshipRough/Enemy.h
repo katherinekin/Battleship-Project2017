@@ -26,12 +26,16 @@ public:
 	void FindTheShip(int **temp, int board[]);
 
 	void Print();
+
+	Point getLastStrike();
 	
 		
 private:
 	vector<Point> _locs;
 	vector<Point> _checkLater;
 	vector<Point> _hits;
+	vector<Point> _misses;
+	Point _lastStrike;
 	bool _state;
 };
 #endif //ENEMY_H
