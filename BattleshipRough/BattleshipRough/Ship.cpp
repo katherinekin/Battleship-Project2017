@@ -9,7 +9,7 @@ Ship::Ship()
 	_startingPoint;
 	_points;
 }
-Ship::Ship(int noOfSpaces, string shipName)
+Ship::Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize)
 {
 	_noOfSpaces = noOfSpaces;
 	_shipName = shipName;
@@ -17,32 +17,50 @@ Ship::Ship(int noOfSpaces, string shipName)
 	bool run = true;
 	while (run)
 	{
-		cout << "Select a starting location for your " << shipName << endl;
-		cout << "It takes up " << noOfSpaces << " spaces." << endl;
-		_startingPoint.userAssigned();
-		string input;
-		bool run2 = true;
-		while (run2)
+		if (!randomPlacement)
 		{
-			cout << "Horizontal or Vertical? H/V: ";
-			cin >> input;
-			if (input[0] == 'h' || input[0] == 'H')
+			cout << "Select a starting location for your " << shipName << endl;
+			cout << "It takes up " << noOfSpaces << " spaces." << endl;
+			_startingPoint.userAssigned();
+			string input;
+			bool run2 = true;
+			while (run2)
 			{
-				_vertical = false;
-				run2 = false;
-			}
-			else if (input[0] == 'v' || input[0] == 'V')
-			{
-				_vertical = true;
-				run2 = false;
-			}
-			else
-			{
-				cout << "Input error. Try again." << endl;
-				cin.clear();
-				cin.ignore(10000, '\n');
+				cout << "Horizontal or Vertical? H/V: ";
+				cin >> input;
+				if (input[0] == 'h' || input[0] == 'H')
+				{
+					_vertical = false;
+					run2 = false;
+				}
+				else if (input[0] == 'v' || input[0] == 'V')
+				{
+					_vertical = true;
+					run2 = false;
+				}
+				else
+				{
+					cout << "Input error. Try again." << endl;
+					cin.clear();
+					cin.ignore(10000, '\n');
+				}
 			}
 		}
+		else if(randomPlacement) {
+			int index = rand() % boardSize;
+			int rem = index % 10;
+			index /= 10;
+			_startingPoint = Point(index, rem);
+			int coinToss = 0;
+			coinToss = rand() % 2;
+			if (coinToss = 0)
+				_vertical = true;
+			else
+				_vertical = false;
+		}
+		else
+			cout << "randomPlacement Error" << endl;
+
 		int endingPoint;
 		if (!_vertical)
 			endingPoint = _startingPoint.x + _noOfSpaces;
@@ -77,6 +95,7 @@ Ship::Ship(int noOfSpaces, string shipName)
 	cin.clear();
 	cin.ignore(10000, '\n');
 }
+
 
 int Ship::getNoOfSpaces()
 {
