@@ -19,13 +19,13 @@ Ship::Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize)
 	{
 		if (!randomPlacement)
 		{
-			cout << "Select a starting location for your " << shipName << endl;
-			cout << "It takes up " << noOfSpaces << " spaces." << endl;
-			_startingPoint.userAssigned();
 			string input;
 			bool run2 = true;
 			while (run2)
 			{
+				cout << "Select a starting location for your " << shipName << endl;
+				cout << "It takes up " << noOfSpaces << " spaces." << endl;
+				_startingPoint.userAssigned();
 				cout << "Horizontal or Vertical? H/V: ";
 				cin >> input;
 				if (input[0] == 'h' || input[0] == 'H')
@@ -47,7 +47,7 @@ Ship::Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize)
 			}
 		}
 		else if(randomPlacement) {
-			cout << "Trying to randomly place " << shipName << endl;
+			//cout << "Trying to randomly place " << shipName << endl;
 			int index = rand() % boardSize;
 			int rem = index % 10;
 			index /= 10;
@@ -58,7 +58,7 @@ Ship::Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize)
 				_vertical = true;
 			else
 				_vertical = false;
-			cout << "Attempting " << _startingPoint << " and vertical is set to " << _vertical;
+			//cout << "Attempting " << _startingPoint << " and vertical is set to " << _vertical;
 		}
 		else
 			cout << "randomPlacement Error" << endl;
@@ -73,7 +73,12 @@ Ship::Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize)
 		if (endingPoint <= 10 && endingPoint >= 0)
 			run = false;
 		else
-			cout << "The ship goes out of bounds! Try again." << endl;
+		{
+			if (!randomPlacement)
+			{
+				cout << "The ship goes out of bounds! Try again." << endl;
+			}
+		}
 	}
 	Point temp(_startingPoint.x, _startingPoint.y);
 	_points.push_back(temp);
@@ -94,7 +99,6 @@ Ship::Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize)
 		}
 	}
 	cin.clear();
-	cin.ignore(10000, '\n');
 }
 
 

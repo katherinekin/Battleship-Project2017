@@ -12,18 +12,37 @@
 
 using namespace std;
 
-void splashScreen();	//splashScreen for the game
+int splashScreen();	//splashScreen for the game
 vector<Ship> RandomBoard(Board board);	//Makes a board with randomly placed ships for the computer
+vector<Ship> ManualBoard(Board sampleBoard);
 
 int main()
 {
 	srand(time(0)); // makes everything more randomer
 
 	Board sampleBoard = Board();
-
-	splashScreen();
+	Board enemyBoard = Board();
 	vector<Ship> myShips;
-	myShips = RandomBoard(sampleBoard);
+	vector<Ship> theirShips;
+
+	int option = splashScreen();
+	string ui = "";
+	if (option == 1)
+	{
+		myShips = ManualBoard(sampleBoard);
+	}
+	else if (option == 2)
+	{
+		myShips = RandomBoard(sampleBoard);
+	}
+	cin.clear();
+	cin.ignore();
+	system("cls");
+	cout << sampleBoard;
+	cout << endl << "Your board has been set." << endl;
+	theirShips = RandomBoard(enemyBoard);
+	cout << "The Enemy's board has been set." << endl;
+	//system("pause");
 
 	bool state = 0;
 
@@ -59,7 +78,7 @@ int main()
 	return 0;
 }
 
-void splashScreen()
+int splashScreen()
 {
 	cout << "    ____        __  __  __          __    _     " << endl;
 	cout << "   / __ )____ _/ /_/ /_/ /__  _____/ /_  (_)___ " << endl;
@@ -69,10 +88,33 @@ void splashScreen()
 	cout << "                                       /_/      " << endl << endl;
 	cout << "By Jaylon Dukes, Katherine Kin, and Payne Wheat" << endl << endl;
 	cout << "COSC 1430 - Dr. Dursun" << endl << endl;
-	cout << "For the best experience, maximize your console window." << endl << endl;
+	cout << "For the best experience, maximize your console window." << endl << endl << endl;
+	cout << "Select Option:" << endl;
+	cout << "1. Manually Assign Ship Locations" << endl;
+	cout << "2. Randomly Assign Ship Locations" << endl;
+	string ui;
+	bool run = true;
+	while (run)
+	{
+		cin >> ui;
+		if (ui[0] == '1')
+		{
+			cin.clear();
+			return 1;
+		}
+		else if (ui[0] == '2')
+		{
+			cin.clear();
+			return 2;
+		}
+		else
+			cout << "Input error. Try again: ";
+		cin.clear();
+	}
 	system("pause");
 	system("cls");
 }
+
 
 //can be used to generate board for the player and the computer
 //returns a vector of liveships
@@ -88,6 +130,17 @@ vector<Ship> RandomBoard(Board sampleBoard)
 	for(int i = 0; i<5; i++)
 	{
 		someShips.shipAddition(sampleBoard, ShipSize[i], ShipName[i], true);
+	}
+	return someShips.getLiveShips();
+}
+vector<Ship> ManualBoard(Board sampleBoard)
+{
+	int ShipSize[5] = { 5, 4, 3, 3, 2 };
+	string ShipName[5] = { "Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer" };
+	PlaceShip someShips;
+	for (int i = 0; i<5; i++)
+	{
+		someShips.shipAddition(sampleBoard, ShipSize[i], ShipName[i]);
 	}
 	return someShips.getLiveShips();
 }
