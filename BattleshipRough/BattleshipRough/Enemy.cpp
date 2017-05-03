@@ -178,18 +178,15 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 {
 	//Loop through to find which ship was hit, sets the size needed to sink the ship
 	Point hit = _hits.back();
-	vector<Ship> ships;
-	if (_hitShips.size() > 0)
-		ships = _hitShips;
-	else
-		ships = _someShips;
+	bool FoundShip = false;  
+	Ship ship;
 
-	for (int i = 0; i < ships.size(); i++)
+	for (int i = _someShips.size()-1; i >= 0; i--)
 	{
-		Ship ship = ships.at(i);
+		ship = _someShips.at(i);
 		vector<Point> coord = ship.getPoints();
 
-		for (int j = 0; j < coord.size(); j++)
+		for (int j = coord.size() - 1; j >= 0; j--)
 		{
 			Point p = coord.at(j);
 			
@@ -202,18 +199,51 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 				//set size to look for ship
 				ship.setNoOfSpaces(ship.getNoOfSpaces() - 1);
 				_hitShips.push_back(ship);	//adds ship with new size;
+				_someShips.erase(_someShips.begin() + i);
 
 				cout << "The size of this ship is now " << ship.getNoOfSpaces() << endl;
+				FoundShip = true;
 			
-				if (ship.getNoOfSpaces() == 0)
+				break;
+			}
+		}
+	}
+	
+	if (FoundShip == false)
+	{
+		for (int i = _hitShips.size() - 1; i >= 0; i--)
+		{
+			ship = _hitShips.at(i);
+			vector<Point> coord = ship.getPoints();
+
+			for (int j = coord.size() - 1; j >= 0; j--)
+			{
+				Point p = coord.at(j);
+				if (p.x == hit.x && p.y == hit.y)
 				{
-					cout << "The " << ship.getShipName() << " has been sunk!" << endl;
+					cout << "The ship I am looking for is in _hitShips, and is the " << ship.getShipName() << endl;
+					cout << "The size of this ship was " << ship.getNoOfSpaces() << endl;
+					
+					ship.setNoOfSpaces(ship.getNoOfSpaces() - 1);
 					_hitShips.erase(_hitShips.begin() + i);
-					//remove all coordinates from _hits
+					_hitShips.push_back(ship);
+
+					cout << "The size of this ship is now " << ship.getNoOfSpaces() << endl;
+					FoundShip = true;
+					if (ship.getNoOfSpaces() == 0)
+					{
+						cout << "The " << ship.getShipName() << " has been sunk!" << endl;
+						_hitShips.erase(_hitShips.begin() + i);
+						//remove all coordinates from _hits
+						break;
+					}
 				}
 			}
 		}
 	}
+	
+	if (_hitShips.size() == 0)
+		_state = 0;
 }
 //create a new vector findShip that combines locs and checkLater, don't sort
 //vector<Point> findShip = _locs;
@@ -240,12 +270,11 @@ void Enemy::FindTheShip(int **temp, int board[])
 		Point p = _locs.at(index);
 		if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
 		{
-			cout << "I will check if there is a ship in: " << p <<endl;
+			cout << "I will check if there is a ship in _locs at: " << p <<endl;
 			FocusedHitOrMiss(temp, board, index, p);
 			foundShip = true;
-			break;	//computer can only guess one spot per turn!
+			break;
 		}
-		
 	}
 	if (foundShip = false)	//check _checkLater if no match in _locs
 	{
@@ -254,23 +283,15 @@ void Enemy::FindTheShip(int **temp, int board[])
 			Point p = _checkLater.at(index);
 			if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
 			{
-				cout << "I will check if there is a ship in: " << p << endl;
+				cout << "I will check if there is a ship in _checkLater at: " << p << endl;
 				FocusedHitOrMiss(temp, board, index, p);
-				break;	//computer can only guess one spot per turn!
+				break;
 			}
 		}
 	}
 	
-
-	//if this vector is empty, _state becomes 0
-	if (_hits.size() < 1)
-	{
-		_state = 0;
-	}
-
-	//keep going until a ship has been sunk, if ship not sunk
-	//while number of ships is not less than current number and number of ships is not equal to zero
 }
+
 Point Enemy::getLastStrike()
 {
 	return _lastStrike;
@@ -278,7 +299,7 @@ Point Enemy::getLastStrike()
 
 void Enemy::Print()	//Prints the vectors _locs, _checkLater, and _hits for troubleshooting
 {
-	//Print out _locs and _checkLater
+	/*
 	cout << "_locs contains "<<endl;
 	for (int i = 0; i < _locs.size(); i++)
 	{
@@ -286,6 +307,7 @@ void Enemy::Print()	//Prints the vectors _locs, _checkLater, and _hits for troub
 		cout << _locs.at(i) << "   ";
 	}
 	cout << endl;
+	*/
 	cout << "_checkLater contains "<<endl;
 	for (int i = 0; i < _checkLater.size(); i++)
 	{
