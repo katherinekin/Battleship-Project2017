@@ -47,16 +47,18 @@ Ship::Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize)
 			}
 		}
 		else if(randomPlacement) {
+			cout << "Trying to randomly place " << shipName << endl;
 			int index = rand() % boardSize;
 			int rem = index % 10;
 			index /= 10;
 			_startingPoint = Point(index, rem);
 			int coinToss = 0;
 			coinToss = rand() % 2;
-			if (coinToss = 0)
+			if (coinToss == 0)
 				_vertical = true;
 			else
 				_vertical = false;
+			cout << "Attempting " << _startingPoint << " and vertical is set to " << _vertical;
 		}
 		else
 			cout << "randomPlacement Error" << endl;
@@ -91,7 +93,6 @@ Ship::Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize)
 			_points.push_back(temp);
 		}
 	}
-	system("cls"); 
 	cin.clear();
 	cin.ignore(10000, '\n');
 }
