@@ -1,9 +1,11 @@
 #include <iostream>
 #include<random>
-#include<algorithm>
 #include<vector>
 #include<string>
 #include"Enemy.h"
+#include"Point.h"
+#include"PlaceShip.h"
+#include"Ship.h"
 
 using namespace std;
 
@@ -19,13 +21,14 @@ Enemy::~Enemy()
 {
 	//
 }
-Enemy::Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state)
+Enemy::Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state, vector<Ship> &someShips)
 {
 	_locs = locs;
 	_checkLater = checkLater;
 	_hits;
 	_misses;
 	_state = state;
+	_someShips = someShips;	//when this is empty, win condition
 	_lastStrike;
 }
 	//
@@ -110,7 +113,10 @@ void Enemy::Hit(int index, Point p)
 			_checkLater.erase(_checkLater.begin() + i);
 		}
 	}
-
+	if (_hits.size() == 1)
+	{
+		firstStrike();
+	}
 	Print();
 	cout << endl;
 }
@@ -168,26 +174,47 @@ void Enemy::removeAdjSpaces(int x, int y)
 		}
 	}
 }
+void Enemy::firstStrike()
+{
+	//Loop through to find which ship was hit, sets the size needed to sink the ship
+	Point hit = _hits.back();
+	for (int i = 0; i < _someShips.size(); i++)
+	{
+		Ship someShip = _someShips.at(i);
+		vector<Point> coord = someShip.getPoints();
 
+		for (int j = 0; j < coord.size(); j++)
+		{
+			Point p = coord.at(j);
+			if (p.x == hit.x && p.y == hit.y)
+			{
+				//get ship name
+				cout << "The ship I am looking for is the " << someShip.getShipName() << endl;
+				cout << "The size of this ship is " << coord.size() << endl;
+				//get ship size
+				//set size to look for ship
+			}
+
+		}
+
+	}
+}
+//create a new vector findShip that combines locs and checkLater, don't sort
+//vector<Point> findShip = _locs;
+//findShip.insert(findShip.end(), _checkLater.begin(), _checkLater.end());	
+//concatenates _locs and _checkLater, index in for Loop corresponds
 void Enemy::FindTheShip(int **temp, int board[])
 {
-	//create a new vector findShip that combines locs and checkLater, don't sort
-	//vector<Point> findShip = _locs;
-	//findShip.insert(findShip.end(), _checkLater.begin(), _checkLater.end());	//concatenates _locs and _checkLater, index in for Loop corresponds
-
-	
-	//go by number of ships before state change
-	//go by number of hit spots (better)
-	//finding the first two spots most important
-	//edge case: if there are two ships side by side
-	
 	Point hit = _hits.back();	//returns the last Point in _hits
+	//if hit is in one of the ships, get the ship name and size
+
 	int x = hit.x;
 	int y = hit.y;
-	cout << hit << " was hit, time to test" << endl;
+
+	
+	
 
 	//(a, y) (b, y) (x, c) (y, d)
-	//create a new vector that holds all the spots with hits
 	int a = x - 1;
 	int b = x + 1;
 	int c = y - 1;
@@ -224,6 +251,11 @@ void Enemy::FindTheShip(int **temp, int board[])
 	//keep going until a ship has been sunk, if ship not sunk
 	//while number of ships is not less than current number and number of ships is not equal to zero
 }
+Point Enemy::getLastStrike()
+{
+	return _lastStrike;
+}
+
 void Enemy::Print()	//Prints the vectors _locs, _checkLater, and _hits for troubleshooting
 {
 	//Print out _locs and _checkLater
@@ -257,8 +289,4 @@ void Enemy::Print()	//Prints the vectors _locs, _checkLater, and _hits for troub
 	cout << endl;
 }
 
-Point Enemy::getLastStrike()
-{
-	return _lastStrike;
-}
 
