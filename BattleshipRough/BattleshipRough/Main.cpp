@@ -2,6 +2,7 @@
 #include<random>
 #include<vector>
 #include<string>
+#include <ctime>
 #include"Enemy.h"
 //<<<<<<< HEAD
 #include "Board.h"
@@ -17,6 +18,7 @@ void shipAddition(Board board, int spaces, string name, bool randomPlacement);
 
 int main()
 {
+	srand(time(0)); // makes everything more randomer
 //<<<<<<< HEAD
 	Board sampleBoard = Board();
 //=======
@@ -27,30 +29,6 @@ int main()
 	//if (testPoint == samplePoint)
 		//cout << "True!"<<endl;
 
-
-//>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
-/*
-	int row = 10;
-	int* board = new int[row*row];
-	int** temp = new int*[row];
-	vector<Point> locs(100);
-	vector<Point> checkLater;
-*/
-// Code no longer necessary.
-//>>>>>>> Katherine2
-	
-	/*
-	Point a = Point(1, 0);
-	Point b = Point(1, 1);
-	Point c = Point(1, 2);
-	cout << a << endl;
-	cout << b << endl;
-	cout << c << endl;
-	sampleBoard.setPointState(a, 1);
-	sampleBoard.setPointState(b, 1);
-	sampleBoard.setPointState(c, 1);
-	*/
-
 	splashScreen();
 
 	shipAddition(sampleBoard, 5, "Carrier", true);
@@ -59,23 +37,6 @@ int main()
 	shipAddition(sampleBoard, 3, "Submarine", true);
 	shipAddition(sampleBoard, 2, "Destroyer", true);
 
-	/*
-	while (run)
-	{
-		cout << sampleBoard;
-		Ship sampleShip2 = Ship(5, "Carrier");
-		if (sampleBoard.addShip(sampleShip2) == true)
-			run = false;
-	}
-	run = true;
-	while (run)
-	{
-		cout << sampleBoard;
-		Ship sampleShip = Ship(4, "Battleship");
-		if (sampleBoard.addShip(sampleShip) == true)
-			run = false;
-	}
-	*/
 	cout << sampleBoard;
 
 	bool state = 0;
@@ -95,12 +56,11 @@ int main()
 	while (!(userInput == 'Q'))
 	{
 		cin.clear();
-		//cin.ignore();
 		//comp.turn(temp, board);
 		comp.turn(sampleBoard.getTemp(), sampleBoard.getBoardArray());
 		ls = comp.getLastStrike();
-		if (sampleBoard.getPointState(ls) == 1)
-			sampleBoard.setPointState(ls, 9);
+		if (sampleBoard.getPointState(ls) == 1)	// Point State reference:
+			sampleBoard.setPointState(ls, 9);	// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
 		else
 			sampleBoard.setPointState(ls, 5);
 		cout << sampleBoard;
@@ -108,7 +68,7 @@ int main()
 		cin.get(userInput);
 		system("cls");
 
-} 
+	} 
 
 	return 0;
 }
@@ -128,8 +88,35 @@ void splashScreen()
 	system("cls");
 }
 
+void shipAddition(Board board, int spaces, string name)
+{
+	system("cls");
+	bool run = true;
+	bool randomPlacement;
+	cout << board;
+	cout << "Manually place " << name << " or Randomly? M/R: ";
+	string ui;
+	cin >> ui;
+	if (ui[0] == 'M' || ui[0] == 'm') 
+		randomPlacement = false;
+	else if (ui[0] == 'R' || ui[0] == 'r')
+		randomPlacement = true;
+
+	while (run)
+	{
+		Ship ship = Ship(spaces, name, randomPlacement, 100);
+		if (board.addShip(ship) == true)
+			run = false;
+		else
+		{
+			cout << board;
+			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl << endl;
+		}
+	}
+}
 void shipAddition(Board board, int spaces, string name, bool randomPlacement)
 {
+	system("cls");
 	bool run = true;
 	cout << board;
 	while (run)
@@ -139,7 +126,6 @@ void shipAddition(Board board, int spaces, string name, bool randomPlacement)
 			run = false;
 		else
 		{
-			system("cls");
 			cout << board;
 			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl << endl;
 		}
