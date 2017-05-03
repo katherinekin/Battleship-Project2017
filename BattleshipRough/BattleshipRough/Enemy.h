@@ -23,10 +23,11 @@ public:
 	void Hit(int index, Point p);
 	void Miss(int index, Point p);
 
-	void removeAdjSpaces(int x, int y);
+	//void removeAdjSpaces(int x, int y);
+	void RemoveHits(Ship ship);
 	void firstStrike();
 	void FindTheShip(int **temp, int board[]);
-
+	bool WinCondition();
 	void Print();
 
 	Point getLastStrike();
@@ -42,5 +43,6 @@ private:
 
 	Point _lastStrike;
 	bool _state;
+	bool _win;
 };
 #endif //ENEMY_H

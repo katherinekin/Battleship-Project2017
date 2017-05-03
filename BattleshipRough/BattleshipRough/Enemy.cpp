@@ -2,6 +2,7 @@
 #include<random>
 #include<vector>
 #include<string>
+#include<algorithm>
 #include"Enemy.h"
 #include"Point.h"
 #include"PlaceShip.h"
@@ -31,6 +32,7 @@ Enemy::Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state, vector<
 	_someShips = someShips;	//when this is empty, win condition
 	_hitShips;
 	_lastStrike;
+	_win = false;
 }
 	//
 void Enemy::turn(int **temp, int board[])
@@ -45,6 +47,7 @@ void Enemy::turn(int **temp, int board[])
 	}
 
 }
+
 void Enemy::RandomHitOrMiss(int **temp, int board[])
 {
 	int index = rand() % _locs.size();
@@ -55,8 +58,7 @@ void Enemy::RandomHitOrMiss(int **temp, int board[])
 	
 	if (temp[x][y] == 1)
 	{
-		cout << p << endl;
-		cout << "HIT" << endl;
+		cout << p << " is a HIT" << endl;
 			//check if the ship has sunk
 			//if not sunk, call function to look for ship
 		Hit(index, p);
@@ -65,14 +67,14 @@ void Enemy::RandomHitOrMiss(int **temp, int board[])
 
 	else
 	{
-		cout << p << endl;
-		cout << "MISS" << endl;
+		cout << p << " is a MISS" << endl;
 
 		Miss(index, p);
 		_state = 0;
 	}
 	_lastStrike = p;
 }
+
 
 void Enemy::FocusedHitOrMiss(int **temp, int board[], int index, Point p)
 {
@@ -81,12 +83,12 @@ void Enemy::FocusedHitOrMiss(int **temp, int board[], int index, Point p)
 
 	if (temp[x][y] == 1)	//If ship is there
 	{
-		cout << "FOCUSED HIT" << endl;
+		cout << " is a HIT." << endl;
 		Hit(index, p);
 	}
 	else
 	{
-		cout << "FOCUSED MISS" << endl;
+		cout << " is a MISS." << endl;
 		Miss(index, p);
 	}
 	_lastStrike = p;
@@ -95,7 +97,6 @@ void Enemy::FocusedHitOrMiss(int **temp, int board[], int index, Point p)
 void Enemy::Hit(int index, Point p)
 {
 	_hits.push_back(p);
-	//should call the draw function to change graphics of the board corresponding to HIT
 	//check if p is in _locs or _checkLater before deleting
 	int x = p.x;
 	int y = p.y;
@@ -114,7 +115,6 @@ void Enemy::Hit(int index, Point p)
 			_checkLater.erase(_checkLater.begin() + i);
 		}
 	}
-
 	firstStrike();
 
 	Print();
@@ -147,10 +147,15 @@ void Enemy::Miss(int index, Point p)
 	
 	//should call the draw function to change graphics of the board corresponding to MISS
 	//call function to also remove adjacent spaces 
-	removeAdjSpaces(p.x, p.y);
+
+	//Bugging out
+	//removeAdjSpaces(p.x, p.y);
 
 	Print();
 }
+
+//removeAdjSpaces is bugging out the system, 
+/*
 void Enemy::removeAdjSpaces(int x, int y)
 {
 	int a = x - 1;
@@ -174,6 +179,8 @@ void Enemy::removeAdjSpaces(int x, int y)
 		}
 	}
 }
+*/
+
 void Enemy::firstStrike()	//gives info on what type of ship was hit
 {
 	//Loop through to find which ship was hit, sets the size needed to sink the ship
@@ -181,7 +188,7 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 	bool FoundShip = false;  
 	Ship ship;
 
-	for (int i = _someShips.size()-1; i >= 0; i--)
+	for (int i = 0; i <_someShips.size(); i++)
 	{
 		ship = _someShips.at(i);
 		vector<Point> coord = ship.getPoints();
@@ -195,8 +202,7 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 				//get ship name
 				cout << "The ship I am looking for is the " << ship.getShipName() << endl;
 				cout << "The size of this ship is " << ship.getNoOfSpaces() << endl;
-				//get ship size
-				//set size to look for ship
+	
 				ship.setNoOfSpaces(ship.getNoOfSpaces() - 1);
 				_hitShips.push_back(ship);	//adds ship with new size;
 				_someShips.erase(_someShips.begin() + i);
@@ -211,7 +217,7 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 	
 	if (FoundShip == false)
 	{
-		for (int i = _hitShips.size() - 1; i >= 0; i--)
+		for (int i = 0; i < _hitShips.size(); i++)
 		{
 			ship = _hitShips.at(i);
 			vector<Point> coord = ship.getPoints();
@@ -233,8 +239,9 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 					if (ship.getNoOfSpaces() == 0)
 					{
 						cout << "The " << ship.getShipName() << " has been sunk!" << endl;
-						_hitShips.erase(_hitShips.begin() + i);
 						//remove all coordinates from _hits
+						RemoveHits(ship);
+						_hitShips.erase(_hitShips.begin() + i);
 						break;
 					}
 				}
@@ -244,6 +251,25 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 	
 	if (_hitShips.size() == 0)
 		_state = 0;
+}
+
+void Enemy::RemoveHits(Ship ship)
+{
+	vector<Point> coord = ship.getPoints();
+
+	for (int j = coord.size() - 1; j >= 0; j--)
+	{
+		Point p = coord.at(j);
+
+		for (int k = 0; k < _hits.size(); k++)
+		{
+			Point phits = _hits.at(k);
+			if(p.x == phits.x && p.y == phits.y)
+			{
+				_hits.erase(_hits.begin() + k);
+			}
+		}
+	}
 }
 //create a new vector findShip that combines locs and checkLater, don't sort
 //vector<Point> findShip = _locs;
@@ -259,37 +285,111 @@ void Enemy::FindTheShip(int **temp, int board[])
 	int x = hit.x;
 	int y = hit.y;
 
-	//(a, y) (b, y) (x, c) (y, d)
+	//(a, y) (b, y) (x, c) (x, d)
 	int a = x - 1;
 	int b = x + 1;
 	int c = y - 1;
 	int d = y + 1;
-	
-	for (int index = _locs.size() - 1; index >= 0; index--)
+	if (_hits.size() < 2)	//first hit
 	{
-		Point p = _locs.at(index);
-		if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
+		for (int index = _locs.size() - 1; index >= 0; index--)
 		{
-			cout << "I will check if there is a ship in _locs at: " << p <<endl;
-			FocusedHitOrMiss(temp, board, index, p);
-			foundShip = true;
-			break;
-		}
-	}
-	if (foundShip = false)	//check _checkLater if no match in _locs
-	{
-		for (int index = 0; index < _checkLater.size(); index++)
-		{
-			Point p = _checkLater.at(index);
+			Point p = _locs.at(index);
 			if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
 			{
-				cout << "I will check if there is a ship in _checkLater at: " << p << endl;
+				cout << "I will check if there is a ship in _locs at: " << p << endl;
 				FocusedHitOrMiss(temp, board, index, p);
+				foundShip = true;
 				break;
 			}
 		}
+		if (foundShip = false)	//check _checkLater if no match in _locs
+		{
+			for (int index = _checkLater.size() - 1; index >= 0; index--)
+			{
+				cout << "Check in _checkLater" << endl;
+				Point p = _checkLater.at(index);
+				if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
+				{
+					cout << "I will check if there is a ship in _checkLater at: " << p << endl;
+					FocusedHitOrMiss(temp, board, index, p);
+					break;
+				}
+			}
+		}
 	}
-	
+	else if (_hits.size() >= 2 && hit.x == _hits.end()[-2].x)	//if greater than or equal to 2 and horizontal
+	{
+
+		c = min(hit.y, _hits.end()[-2].y) - 1;
+		d = max(hit.y, _hits.end()[-2].y) + 1;
+		for (int index = _locs.size() - 1; index >= 0; index--)
+		{
+			Point p = _locs.at(index);
+			if ((p.x == x && p.y == c) || (p.x == x && p.y == d))
+			{
+				cout << "I will check if there is a ship in _locs at: " << p << endl;
+				FocusedHitOrMiss(temp, board, index, p);
+				foundShip = true;
+				break;
+			}
+		}
+		if (foundShip = false)	//check _checkLater if no match in _locs
+		{
+			for (int index = _checkLater.size() - 1; index >= 0; index--)
+			{
+				Point p = _checkLater.at(index);
+				if ((p.x == x && p.y == c) || (p.x == x && p.y == d))
+				{
+					cout << "I will check if there is a ship in _checkLater at: " << p << endl;
+					FocusedHitOrMiss(temp, board, index, p);
+					break;
+				}
+			}
+		}
+	}
+	else if (_hits.size() >= 2 && hit.y == _hits.end()[-2].y)	//if greater than or equal to 2 and vertical
+	{
+		a = min(hit.x, _hits.end()[-2].x) - 1;
+		b = max(hit.x, _hits.end()[-2].x) + 1;
+		for (int index = _locs.size() - 1; index >= 0; index--)
+		{
+			Point p = _locs.at(index);
+			if ((p.x == a && p.y == y) || (p.x == b && p.y == y))
+			{
+				cout << "I will check if there is a ship in _locs at: " << p << endl;
+				FocusedHitOrMiss(temp, board, index, p);
+				foundShip = true;
+				break;
+			}
+		}
+		if (foundShip = false)	//check _checkLater if no match in _locs
+		{
+			for (int index = _checkLater.size() - 1; index >= 0; index--)
+			{
+				Point p = _checkLater.at(index);
+				if ((p.x == a && p.y == y) || (p.x == b && p.y == y))
+				{
+					cout << "I will check if there is a ship in _checkLater at: " << p << endl;
+					FocusedHitOrMiss(temp, board, index, p);
+					break;
+				}
+			}
+		}
+	}
+	else
+	{
+		_state = 0;
+		RandomHitOrMiss(temp, board);
+	}
+}
+bool Enemy::WinCondition()
+{
+	if (_someShips.size() == 0 && _hitShips.size()==0)
+	{
+		_win = true;
+	}
+	return _win;
 }
 
 Point Enemy::getLastStrike()
@@ -315,6 +415,7 @@ void Enemy::Print()	//Prints the vectors _locs, _checkLater, and _hits for troub
 		cout << _checkLater.at(i) << "   ";
 	}
 	cout << endl;
+	
 	cout << "_hits contains "<<endl;
 	for (int i = 0; i < _hits.size(); i++)
 	{

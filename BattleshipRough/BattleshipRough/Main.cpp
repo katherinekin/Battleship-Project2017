@@ -47,7 +47,7 @@ int main()
 		ls = comp.getLastStrike();
 		if (sampleBoard.getPointState(ls) == 1)	// Point State reference:
 			sampleBoard.setPointState(ls, 9);	// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
-		else
+		else if(sampleBoard.getPointState(ls) == 0)
 			sampleBoard.setPointState(ls, 5);
 		cout << sampleBoard;
 		cout << "Press enter to allow the computer to move" << endl;
