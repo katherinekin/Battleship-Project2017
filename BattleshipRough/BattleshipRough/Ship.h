@@ -27,7 +27,7 @@ public:
 	vector<Point> getPoints();
 	void setPoints(vector<Point> points);
 
-private:
+protected:
 	int _noOfSpaces;
 	string _shipName;
 	char _shipChar;

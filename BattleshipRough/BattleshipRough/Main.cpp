@@ -1,49 +1,35 @@
 #include <iostream>
 #include<random>
 #include<vector>
+#include<array>
 #include<string>
 #include <ctime>
 #include"Enemy.h"
-//<<<<<<< HEAD
 #include "Board.h"
 #include "Ship.h"
-//=======
+#include"PlaceShip.h"
+
 
 using namespace std;
 
-//>>>>>>> Katherine2
-//>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
-void splashScreen();
-void shipAddition(Board board, int spaces, string name, bool randomPlacement);
+void splashScreen();	//splashScreen for the game
+vector<Ship> RandomBoard(Board board);	//Makes a board with randomly placed ships for the computer
 
 int main()
 {
 	srand(time(0)); // makes everything more randomer
-//<<<<<<< HEAD
+
 	Board sampleBoard = Board();
-//=======
-	// sample code for constructing and printing a point
-//<<<<<<< HEAD
-	Point samplePoint(2, 2);
-	Point testPoint(2, 2);
-	//if (testPoint == samplePoint)
-		//cout << "True!"<<endl;
 
 	splashScreen();
-
-	shipAddition(sampleBoard, 5, "Carrier", true);
-	shipAddition(sampleBoard, 4, "Battleship", true);
-	shipAddition(sampleBoard, 3, "Cruiser", true);
-	shipAddition(sampleBoard, 3, "Submarine", true);
-	shipAddition(sampleBoard, 2, "Destroyer", true);
-
-	cout << sampleBoard;
+	vector<Ship> myShips;
+	myShips = RandomBoard(sampleBoard);
 
 	bool state = 0;
 
-	//initialize comp
 	//Enemy comp(locs, checkLater, state);
-	Enemy comp(sampleBoard.getLocs(), sampleBoard.getCheckLater(), state);
+	Enemy comp(sampleBoard.getLocs(), sampleBoard.getCheckLater(), state, myShips);	//initialize comp
+
 	//computer keeps going until player exits or types 'Q'
 	char userInput;
 	cout << "Press enter to allow the computer to move" << endl;
@@ -88,46 +74,20 @@ void splashScreen()
 	system("cls");
 }
 
-void shipAddition(Board board, int spaces, string name)
+//can be used to generate board for the player and the computer
+//returns a vector of liveships
+vector<Ship> RandomBoard(Board sampleBoard)
 {
-	system("cls");
-	bool run = true;
-	bool randomPlacement;
-	cout << board;
-	cout << "Manually place " << name << " or Randomly? M/R: ";
-	string ui;
-	cin >> ui;
-	if (ui[0] == 'M' || ui[0] == 'm') 
-		randomPlacement = false;
-	else if (ui[0] == 'R' || ui[0] == 'r')
-		randomPlacement = true;
-
-	while (run)
+	int ShipSize[5] = { 5, 4, 3, 3, 2 };
+	string ShipName[5] = { "Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer" };
+	PlaceShip someShips;
+	
+	//make a vector of ships
+	//each ship should contain a vector of points
+	
+	for(int i = 0; i<5; i++)
 	{
-		Ship ship = Ship(spaces, name, randomPlacement, 100);
-		if (board.addShip(ship) == true)
-			run = false;
-		else
-		{
-			cout << board;
-			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl << endl;
-		}
+		someShips.shipAddition(sampleBoard, ShipSize[i], ShipName[i], true);
 	}
-}
-void shipAddition(Board board, int spaces, string name, bool randomPlacement)
-{
-	system("cls");
-	bool run = true;
-	cout << board;
-	while (run)
-	{
-		Ship ship = Ship(spaces, name, randomPlacement, 100);
-		if (board.addShip(ship) == true)
-			run = false;
-		else
-		{
-			cout << board;
-			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl << endl;
-		}
-	}
+	return someShips.getLiveShips();
 }
