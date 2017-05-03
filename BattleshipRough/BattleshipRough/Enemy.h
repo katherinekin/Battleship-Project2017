@@ -38,6 +38,8 @@ private:
 	vector<Point> _hits;
 	vector<Point> _misses;
 	vector<Ship> _someShips;
+	vector<Ship> _hitShips;
+
 	Point _lastStrike;
 	bool _state;
 };

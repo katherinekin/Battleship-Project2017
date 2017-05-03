@@ -29,6 +29,7 @@ Enemy::Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state, vector<
 	_misses;
 	_state = state;
 	_someShips = someShips;	//when this is empty, win condition
+	_hitShips;
 	_lastStrike;
 }
 	//
@@ -104,8 +105,8 @@ void Enemy::Hit(int index, Point p)
 		{
 			_locs.erase(_locs.begin() + i);
 		}
-
 	}
+
 	for (int i = 0; i < _checkLater.size(); i++)
 	{
 		if (x == _checkLater.at(i).x && y == _checkLater.at(i).y)
@@ -113,10 +114,9 @@ void Enemy::Hit(int index, Point p)
 			_checkLater.erase(_checkLater.begin() + i);
 		}
 	}
-	if (_hits.size() == 1)
-	{
-		firstStrike();
-	}
+
+	firstStrike();
+
 	Print();
 	cout << endl;
 }
@@ -146,7 +146,7 @@ void Enemy::Miss(int index, Point p)
 	}
 	
 	//should call the draw function to change graphics of the board corresponding to MISS
-	//call function to also remove adjacent spaces
+	//call function to also remove adjacent spaces 
 	removeAdjSpaces(p.x, p.y);
 
 	Print();
@@ -174,29 +174,45 @@ void Enemy::removeAdjSpaces(int x, int y)
 		}
 	}
 }
-void Enemy::firstStrike()
+void Enemy::firstStrike()	//gives info on what type of ship was hit
 {
 	//Loop through to find which ship was hit, sets the size needed to sink the ship
 	Point hit = _hits.back();
-	for (int i = 0; i < _someShips.size(); i++)
+	vector<Ship> ships;
+	if (_hitShips.size() > 0)
+		ships = _hitShips;
+	else
+		ships = _someShips;
+
+	for (int i = 0; i < ships.size(); i++)
 	{
-		Ship someShip = _someShips.at(i);
-		vector<Point> coord = someShip.getPoints();
+		Ship ship = ships.at(i);
+		vector<Point> coord = ship.getPoints();
 
 		for (int j = 0; j < coord.size(); j++)
 		{
 			Point p = coord.at(j);
+			
 			if (p.x == hit.x && p.y == hit.y)
 			{
 				//get ship name
-				cout << "The ship I am looking for is the " << someShip.getShipName() << endl;
-				cout << "The size of this ship is " << coord.size() << endl;
+				cout << "The ship I am looking for is the " << ship.getShipName() << endl;
+				cout << "The size of this ship is " << ship.getNoOfSpaces() << endl;
 				//get ship size
 				//set size to look for ship
+				ship.setNoOfSpaces(ship.getNoOfSpaces() - 1);
+				_hitShips.push_back(ship);	//adds ship with new size;
+
+				cout << "The size of this ship is now " << ship.getNoOfSpaces() << endl;
+			
+				if (ship.getNoOfSpaces() == 0)
+				{
+					cout << "The " << ship.getShipName() << " has been sunk!" << endl;
+					_hitShips.erase(_hitShips.begin() + i);
+					//remove all coordinates from _hits
+				}
 			}
-
 		}
-
 	}
 }
 //create a new vector findShip that combines locs and checkLater, don't sort
@@ -208,11 +224,10 @@ void Enemy::FindTheShip(int **temp, int board[])
 	Point hit = _hits.back();	//returns the last Point in _hits
 	//if hit is in one of the ships, get the ship name and size
 
+	bool foundShip = false;
+
 	int x = hit.x;
 	int y = hit.y;
-
-	
-	
 
 	//(a, y) (b, y) (x, c) (y, d)
 	int a = x - 1;
@@ -227,20 +242,25 @@ void Enemy::FindTheShip(int **temp, int board[])
 		{
 			cout << "I will check if there is a ship in: " << p <<endl;
 			FocusedHitOrMiss(temp, board, index, p);
+			foundShip = true;
 			break;	//computer can only guess one spot per turn!
 		}
 		
 	}
-	for (int index = 0; index < _checkLater.size(); index++)
+	if (foundShip = false)	//check _checkLater if no match in _locs
 	{
-		Point p = _checkLater.at(index);
-		if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
+		for (int index = 0; index < _checkLater.size(); index++)
 		{
-			cout << "I will check if there is a ship in: " << p <<endl;
-			FocusedHitOrMiss(temp, board, index, p);
-			break;	//computer can only guess one spot per turn!
+			Point p = _checkLater.at(index);
+			if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
+			{
+				cout << "I will check if there is a ship in: " << p << endl;
+				FocusedHitOrMiss(temp, board, index, p);
+				break;	//computer can only guess one spot per turn!
+			}
 		}
 	}
+	
 
 	//if this vector is empty, _state becomes 0
 	if (_hits.size() < 1)
