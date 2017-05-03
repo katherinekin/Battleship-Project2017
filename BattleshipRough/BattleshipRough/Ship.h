@@ -10,7 +10,7 @@ class Ship
 {
 public:
 	Ship();
-	Ship(int noOfSpaces, string shipName);
+	Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize);
 
 	int getNoOfSpaces();
 	void setNoOfSpaces(int noOfSpaces);

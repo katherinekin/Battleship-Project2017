@@ -13,7 +13,7 @@ using namespace std;
 //>>>>>>> Katherine2
 //>>>>>>> 569c42c630e8af973fb93b5cda905329246abdd5
 void splashScreen();
-void shipAddition(Board board, int spaces, string name);
+void shipAddition(Board board, int spaces, string name, bool randomPlacement);
 
 int main()
 {
@@ -52,11 +52,12 @@ int main()
 	*/
 
 	splashScreen();
-	shipAddition(sampleBoard, 5, "Carrier");
-	shipAddition(sampleBoard, 4, "Battleship");
-	shipAddition(sampleBoard, 3, "Cruiser");
-	shipAddition(sampleBoard, 3, "Submarine");
-	shipAddition(sampleBoard, 2, "Destroyer");
+
+	shipAddition(sampleBoard, 5, "Carrier", true);
+	shipAddition(sampleBoard, 4, "Battleship", true);
+	shipAddition(sampleBoard, 3, "Cruiser", true);
+	shipAddition(sampleBoard, 3, "Submarine", true);
+	shipAddition(sampleBoard, 2, "Destroyer", true);
 
 	/*
 	while (run)
@@ -127,20 +128,20 @@ void splashScreen()
 	system("cls");
 }
 
-void shipAddition(Board board, int spaces, string name)
+void shipAddition(Board board, int spaces, string name, bool randomPlacement)
 {
 	bool run = true;
 	cout << board;
 	while (run)
 	{
-		Ship sampleShip2 = Ship(spaces, name);
-		if (board.addShip(sampleShip2) == true)
+		Ship ship = Ship(spaces, name, randomPlacement, 100);
+		if (board.addShip(ship) == true)
 			run = false;
 		else
 		{
 			system("cls");
 			cout << board;
-			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl;
+			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl << endl;
 		}
 	}
 }
