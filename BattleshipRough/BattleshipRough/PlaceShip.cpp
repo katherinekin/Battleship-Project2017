@@ -53,26 +53,26 @@ void PlaceShip::shipAddition(Board board, int spaces, string name)
 //random placement of ships
 void PlaceShip::shipAddition(Board board, int spaces, string name, bool randomPlacement)
 {
-	system("cls");
+	//system("cls");
 	bool run = true;
-	cout << board;
+	//cout << board;
 
 	while (run)
 	{
 		Ship ship = Ship(spaces, name, randomPlacement, 100);
 		if (board.addShip(ship) == true)
 		{
-			run = false;
 			_LiveShips.push_back(ship);
+			run = false;
 		}
 			
-		///*
+		/*
 		else
 		{
 			cout << board;
 			cout << "A ship already occupies one or more of those spaces!" << endl << "Try Again." << endl << endl;
 		}
-		//*/
+		*/
 	}
 	
 }

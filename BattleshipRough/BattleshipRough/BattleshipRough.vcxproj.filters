@@ -7,6 +7,7 @@
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="PlaceShip.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
