@@ -34,12 +34,12 @@ void Player::turn(int ** temp, int board[])
 	{
 		if (temp[p.x][p.y] == 1)
 		{
-			cout << "HIT" << endl;
+			cout << "You guessed " << p << " -- HIT" << endl;
 			Hit(p);
 		}
 		else
 		{
-			cout << "MISS" << endl;
+			cout << "You guessed " << p << " -- MISS" << endl;
 			Miss(p);
 		}
 
