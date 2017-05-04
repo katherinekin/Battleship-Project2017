@@ -28,15 +28,21 @@ void Player::turn(int ** temp, int board[])
 	Point p;
 	p.userAssigned();
 	system("cls");
-	if (temp[p.x][p.y] == 1)
-	{
-		cout << "HIT" << endl;
-		Hit(p);
-	}
+	if (temp[p.x][p.y] != 1 && temp[p.x][p.y] != 0)
+		cout << "You already tried that space. You lose your turn." << endl;
 	else
 	{
-		cout << "MISS" << endl;
-		Miss(p);
+		if (temp[p.x][p.y] == 1)
+		{
+			cout << "HIT" << endl;
+			Hit(p);
+		}
+		else
+		{
+			cout << "MISS" << endl;
+			Miss(p);
+		}
+
 	}
 	_lastStrike = p;
 }
@@ -61,9 +67,6 @@ void Player::Hit(Point p)
 		}
 	}
 
-
-	firstStrike();
-
 	cout << endl;
 }
 
@@ -86,78 +89,17 @@ void Player::Miss(Point p)
 
 }
 
-void Player::firstStrike()
+vector<Point> Player::getHits()
 {
-	//Loop through to find which ship was hit, sets the size needed to sink the ship
-	Point hit = _hits.back();
-	bool FoundShip = false;
-	Ship ship;
-
-	for (int i = _someShips.size() - 1; i >= 0; i--)
-	{
-		ship = _someShips.at(i);
-		vector<Point> coord = ship.getPoints();
-
-		for (int j = coord.size() - 1; j >= 0; j--)
-		{
-			Point p = coord.at(j);
-
-			if (p.x == hit.x && p.y == hit.y)
-			{
-				//get ship name
-				cout << "The ship I am looking for is the " << ship.getShipName() << endl;
-				cout << "The size of this ship is " << ship.getNoOfSpaces() << endl;
-				//get ship size
-				//set size to look for ship
-				ship.setNoOfSpaces(ship.getNoOfSpaces() - 1);
-				_hitShips.push_back(ship);	//adds ship with new size;
-				_someShips.erase(_someShips.begin() + i);
-
-				cout << "The size of this ship is now " << ship.getNoOfSpaces() << endl;
-				FoundShip = true;
-
-				break;
-			}
-		}
-	}
-
-	if (FoundShip == false)
-	{
-		for (int i = _hitShips.size() - 1; i >= 0; i--)
-		{
-			ship = _hitShips.at(i);
-			vector<Point> coord = ship.getPoints();
-
-			for (int j = coord.size() - 1; j >= 0; j--)
-			{
-				Point p = coord.at(j);
-				if (p.x == hit.x && p.y == hit.y)
-				{
-					cout << "The ship I am looking for is in _hitShips, and is the " << ship.getShipName() << endl;
-					cout << "The size of this ship was " << ship.getNoOfSpaces() << endl;
-
-					ship.setNoOfSpaces(ship.getNoOfSpaces() - 1);
-					_hitShips.erase(_hitShips.begin() + i);
-					_hitShips.push_back(ship);
-
-					cout << "The size of this ship is now " << ship.getNoOfSpaces() << endl;
-					FoundShip = true;
-					if (ship.getNoOfSpaces() == 0)
-					{
-						cout << "The " << ship.getShipName() << " has been sunk!" << endl;
-						_hitShips.erase(_hitShips.begin() + i);
-						//remove all coordinates from _hits
-						break;
-					}
-				}
-			}
-		}
-	}
-
-	if (_hitShips.size() == 0)
-		_state = 0;
-	
+	return _hits;
 }
+
+vector<Ship> Player::getShips()
+{
+	return _someShips;
+}
+
+
 
 Point Player::getLastStrike()
 {

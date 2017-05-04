@@ -91,8 +91,19 @@ void Enemy::FocusedHitOrMiss(int **temp, int board[], int index, Point p)
 	{
 		cout << "FOCUSED MISS" << endl;
 		Miss(index, p);
+		_state = 0;
 	}
 	_lastStrike = p;
+}
+
+vector<Point> Enemy::getHits()
+{
+	return _hits;
+}
+
+vector<Ship> Enemy::getShips()
+{
+	return _someShips;
 }
 
 void Enemy::Hit(int index, Point p)
@@ -173,7 +184,7 @@ void Enemy::removeAdjSpaces(int x, int y)
 		{
 			_locs.erase(_locs.begin() + i);
 			_checkLater.push_back(p);
-			cout << "Removed " << p << endl;
+			//cout << "Removed " << p << endl;
 		}
 	}
 }
@@ -273,7 +284,7 @@ void Enemy::FindTheShip(int **temp, int board[])
 		Point p = _locs.at(index);
 		if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
 		{
-			cout << "I will check if there is a ship in _locs at: " << p <<endl;
+			//cout << "I will check if there is a ship in _locs at: " << p <<endl;
 			FocusedHitOrMiss(temp, board, index, p);
 			foundShip = true;
 			break;
@@ -310,7 +321,7 @@ void Enemy::Print()	//Prints the vectors _locs, _checkLater, and _hits for troub
 		cout << _locs.at(i) << "   ";
 	}
 	cout << endl;
-	*/
+
 	cout << "_checkLater contains "<<endl;
 	for (int i = 0; i < _checkLater.size(); i++)
 	{
@@ -332,6 +343,7 @@ void Enemy::Print()	//Prints the vectors _locs, _checkLater, and _hits for troub
 		cout << _misses.at(i) << "   ";
 	}
 	cout << endl;
+	*/
 }
 
 

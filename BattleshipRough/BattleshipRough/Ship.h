@@ -25,7 +25,7 @@ public:
 	void setVertical(bool vertical);
 
 	vector<Point> getPoints();
-	void setPoints(vector<Point> points);
+	//void setPoints(vector<Point> points);
 
 protected:
 	int _noOfSpaces;
