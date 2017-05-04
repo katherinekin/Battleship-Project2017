@@ -20,6 +20,9 @@ public:
 	void RandomHitOrMiss(int **temp, int board[]);
 	void FocusedHitOrMiss(int **temp, int board[], int index, Point p);
 
+	vector<Point> getHits();
+	vector<Ship> getShips();
+
 	void Hit(int index, Point p);
 	void Miss(int index, Point p);
 

@@ -22,7 +22,10 @@ public:
 	void Hit(Point p);
 	void Miss(Point p);
 
-	void firstStrike();
+	vector<Point> getHits();
+	vector<Ship> getShips();
+
+
 
 	Point getLastStrike();
 

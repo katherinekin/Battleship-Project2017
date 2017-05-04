@@ -24,7 +24,7 @@ int main()
 	Board enemyBoard = Board();
 	vector<Ship> myShips;
 	vector<Ship> theirShips;
-	//enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
+	enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
 	int option = splashScreen();
 	string ui = "";
 	if (option == 1)
@@ -54,32 +54,101 @@ int main()
 	cout << "Press enter to allow the computer to move" << endl;
 	cin.get(userInput);
 	system("cls");
-
+	int enemySunken = 0;
+	int playerSunken = 0;
 	Point ls;
 
 	//can change to win condition
 	while (!(userInput == 'Q'))
 	{
 		cin.clear();
+		if (enemySunken == theirShips.size())
+		{
+			cout << "YOU WIN!" << endl;
+			system("pause");
+			break;
+		}
 		//comp.turn(temp, board);
 		comp.turn(sampleBoard.getTemp(), sampleBoard.getBoardArray());
 		ls = comp.getLastStrike();
-		if (sampleBoard.getPointState(ls) == 1)	// Point State reference:
-			sampleBoard.setPointState(ls, 9);	// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
+		vector<Point> points;
+		if (sampleBoard.getPointState(ls) == 1)
+		{
+			sampleBoard.setPointState(ls, 9);
+			bool isShip = false;
+			for (int i = 0; i < myShips.size(); i++)
+			{
+				points = myShips[i].getPoints();
+				for (int j = 0; j < points.size(); j++)
+				{
+					if (ls.x == points[j].x && ls.y == points[j].y)
+					{
+						isShip = true;
+					}
+				}
+				if (isShip == true)
+				{
+					myShips[i].setNoOfSpaces(myShips[i].getNoOfSpaces() - 1);
+					cout << "They hit your " << myShips[i].getShipName() << " (" << myShips[i].getNoOfSpaces() << " spaces left)" << endl;
+					if (myShips[i].getNoOfSpaces() == 0)
+					{
+						cout << "They've sunk your " << myShips[i].getShipName() << "!" << endl;
+						playerSunken++;
+					}
+				}
+				isShip = false;
+			}
+		}// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
 		else
 			sampleBoard.setPointState(ls, 5);
+		if (playerSunken == myShips.size())
+		{
+			cout << "YOU LOSE." << endl;
+			system("pause");
+			break;
+		}
 		cout << sampleBoard;
 		cout << "Press enter to begin your move" << endl;
 		cin.get(userInput);
 		system("cls");
+		cout << "YOUR MOVE" << endl;
 		cout << enemyBoard << endl;
 		player.turn(enemyBoard.getTemp(), enemyBoard.getBoardArray());
 		ls = player.getLastStrike();
-		if (enemyBoard.getPointState(ls) == 1)	// Point State reference:
+		points.clear();
+		if (enemyBoard.getPointState(ls) == 1 || enemyBoard.getPointState(ls) == 9)	// Point State reference:
+		{
 			enemyBoard.setPointState(ls, 9);	// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
+			bool isShip = false;
+			for (int i = 0; i < theirShips.size(); i++)
+			{
+				points = theirShips[i].getPoints();
+				for (int j = 0; j < points.size(); j++)
+				{
+					if (ls.x == points[j].x && ls.y == points[j].y)
+					{
+						isShip = true;
+					}
+				}
+				if (isShip == true) 
+				{
+					theirShips[i].setNoOfSpaces(theirShips[i].getNoOfSpaces() - 1);
+					cout << "You hit their " << theirShips[i].getShipName() << " (" << theirShips[i].getNoOfSpaces() << " spaces left)" << endl;
+					vector<Ship> ships = comp.getShips();
+					vector<Ship> ships2 = player.getShips();
+					if (theirShips[i].getNoOfSpaces() == 0)
+					{
+						cout << "You've sunk their " << theirShips[i].getShipName() << "!" << endl;
+						enemySunken++;
+					}
+				}
+				isShip = false;
+			}
+		}
 		else
 			enemyBoard.setPointState(ls, 5);
 		cout << enemyBoard;
+
 		cin.clear();
 		cin.ignore();
 		cout << "Press enter to allow the computer to move" << endl;

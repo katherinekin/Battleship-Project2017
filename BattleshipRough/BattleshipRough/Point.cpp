@@ -42,9 +42,19 @@ void Point::userAssigned()
 			xI = 0;
 			ui = "";
 		}
-		yI = ui[1];
-		yI = (ui[1]) - 48; // ASCII code for '0' is 48
-		if (yI <= 10 && yI >= 1) 
+		yI = ui[1]; // ASCII code for '0' is 48
+		if (yI == '1')
+		{
+			if (ui[2] == '0')
+				yI = 10;
+			else
+				yI = 1;
+		}
+		else {
+			yI = (ui[1]) - 48;
+		}
+
+		if (yI <= 10 && yI >= 0) 
 		{
 			yI--;						// Board is 1-10; Array is 0-9; so, subtract one.
 		}

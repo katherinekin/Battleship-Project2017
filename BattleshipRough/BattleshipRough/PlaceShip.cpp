@@ -41,7 +41,10 @@ void PlaceShip::shipAddition(Board board, int spaces, string name)
 	{
 		Ship ship = Ship(spaces, name, _randomPlacement, 100);
 		if (board.addShip(ship) == true)
+		{
+			_LiveShips.push_back(ship);
 			run = false;
+		}
 		else
 		{
 			cout << board;
