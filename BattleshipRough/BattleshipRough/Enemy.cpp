@@ -15,7 +15,10 @@ Enemy::Enemy()
 	_locs;
 	_checkLater;
 	_hits;
+	_misses;
 	_state = 0;
+	_hitShips;
+	_lastStrike;
 }
 Enemy::~Enemy()
 {

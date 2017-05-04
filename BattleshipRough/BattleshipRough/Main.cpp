@@ -8,7 +8,7 @@
 #include "Board.h"
 #include "Ship.h"
 #include"PlaceShip.h"
-
+#include "Player.h"
 
 using namespace std;
 
@@ -48,7 +48,7 @@ int main()
 
 	//Enemy comp(locs, checkLater, state);
 	Enemy comp(sampleBoard.getLocs(), sampleBoard.getCheckLater(), state, myShips);	//initialize comp
-
+	Player player(enemyBoard.getLocs(), myShips);
 	//computer keeps going until player exits or types 'Q'
 	char userInput;
 	cout << "Press enter to allow the computer to move" << endl;
@@ -69,10 +69,22 @@ int main()
 		else
 			sampleBoard.setPointState(ls, 5);
 		cout << sampleBoard;
+		cout << "Press enter to begin your move" << endl;
+		cin.get(userInput);
+		system("cls");
+		cout << enemyBoard << endl;
+		player.turn(enemyBoard.getTemp(), enemyBoard.getBoardArray());
+		ls = player.getLastStrike();
+		if (enemyBoard.getPointState(ls) == 1)	// Point State reference:
+			enemyBoard.setPointState(ls, 9);	// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
+		else
+			enemyBoard.setPointState(ls, 5);
+		cout << enemyBoard;
+		cin.clear();
+		cin.ignore();
 		cout << "Press enter to allow the computer to move" << endl;
 		cin.get(userInput);
 		system("cls");
-
 	} 
 
 	return 0;
