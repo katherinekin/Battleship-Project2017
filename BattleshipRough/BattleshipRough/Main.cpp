@@ -98,7 +98,7 @@ int main()
 				}
 				isShip = false;
 			}
-		}// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
+		}
 		else
 			sampleBoard.setPointState(ls, 5);
 		if (playerSunken == myShips.size())

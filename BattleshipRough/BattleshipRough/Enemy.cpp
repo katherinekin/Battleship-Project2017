@@ -59,7 +59,7 @@ void Enemy::RandomHitOrMiss(int **temp, int board[])
 	if (temp[x][y] == 1)
 	{
 		cout << p << endl;
-		cout << "HIT" << endl;
+		cout << "They guessed " << p << " -- HIT" << endl;
 			//check if the ship has sunk
 			//if not sunk, call function to look for ship
 		Hit(index, p);
@@ -69,7 +69,7 @@ void Enemy::RandomHitOrMiss(int **temp, int board[])
 	else
 	{
 		cout << p << endl;
-		cout << "MISS" << endl;
+		cout << "They guessed " << p << " -- MISS" << endl;
 
 		Miss(index, p);
 		_state = 0;
@@ -84,12 +84,12 @@ void Enemy::FocusedHitOrMiss(int **temp, int board[], int index, Point p)
 
 	if (temp[x][y] == 1)	//If ship is there
 	{
-		cout << "FOCUSED HIT" << endl;
+		cout << "They guessed " << p << " -- FOCUSED HIT" << endl;
 		Hit(index, p);
 	}
 	else
 	{
-		cout << "FOCUSED MISS" << endl;
+		cout << "They guessed " << p << " -- FOCUSED MISS" << endl;
 		Miss(index, p);
 		_state = 0;
 	}
@@ -235,7 +235,7 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 				Point p = coord.at(j);
 				if (p.x == hit.x && p.y == hit.y)
 				{
-					cout << "The ship I am looking for is in _hitShips, and is the " << ship.getShipName() << endl;
+					cout << "The ship I am looking for is the " << ship.getShipName() << endl;
 					cout << "The size of this ship was " << ship.getNoOfSpaces() << endl;
 					
 					ship.setNoOfSpaces(ship.getNoOfSpaces() - 1);
