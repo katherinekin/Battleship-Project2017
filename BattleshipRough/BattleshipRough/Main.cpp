@@ -14,7 +14,7 @@ using namespace std;
 
 int splashScreen();	//splashScreen for the game
 vector<Ship> RandomBoard(Board board);	//Makes a board with randomly placed ships for the computer
-vector<Ship> ManualBoard(Board sampleBoard);
+vector<Ship> ManualBoard(Board board);
 
 int main()
 {
@@ -24,7 +24,7 @@ int main()
 	Board enemyBoard = Board();
 	vector<Ship> myShips;
 	vector<Ship> theirShips;
-
+	//enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
 	int option = splashScreen();
 	string ui = "";
 	if (option == 1)

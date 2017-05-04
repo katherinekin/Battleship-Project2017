@@ -13,6 +13,7 @@ Board::Board()
 	_boardArray = new int[ROW*ROW];
 	_temp = new int*[ROW];
 	_state = 0;
+	_cpuPlayer = false;
 
 	for (int r = 0; r < ROW; r++)
 	{
@@ -36,9 +37,20 @@ Board::Board()
 	}
 }
 
+
 Board::~Board()
 {
 	//Destructor	
+}
+
+void Board::setCpuPlayer(bool cpuPlayer)
+{
+	_cpuPlayer = cpuPlayer;
+}
+
+bool Board::getCpuPlayer()
+{
+	return _cpuPlayer;
 }
 
 void Board::setPointState(Point p, int state)
@@ -158,23 +170,46 @@ ostream & operator<<(ostream & os, const Board board)
 		for (int c = 0; c < ROW; c++)
 		{
 			// Data Line
-			switch (board._temp[c][r])
+			if (board._cpuPlayer == false)
 			{
-			case 0:
-				os << "  | ";
-				break;
-			case 1:
-				os << char(178) << " | ";
-				break;
-			case 5:
-				os << "O | ";
-				break;
-			case 9:
-				os << "X | ";
-				break;
-			default:
-				os << "ERRR";
-				break;
+				switch (board._temp[c][r])
+				{
+				case 0:
+					os << "  | ";
+					break;
+				case 1:
+					os << char(178) << " | ";
+					break;
+				case 5:
+					os << "O | ";
+					break;
+				case 9:
+					os << "X | ";
+					break;
+				default:
+					os << "ERRR";
+					break;
+				}
+			}
+			else
+			{
+				switch (board._temp[c][r]) {
+				case 0:
+					os << "  | ";
+					break;
+				case 1:
+					os << "  | ";
+					break;
+				case 5:
+					os << "O | ";
+					break;
+				case 9:
+					os << "X | ";
+					break;
+				default:
+					os << "ERRR";
+					break;
+				}
 			}
 		}
 		os << endl;
