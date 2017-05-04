@@ -13,6 +13,8 @@ public:
 
 	Board();
 	~Board();
+	void setCpuPlayer(bool cpuPlayer);
+	bool getCpuPlayer();
 
 	void setPointState(Point p, int state);
 	int getPointState(Point p);
@@ -41,6 +43,6 @@ private:
 	int** _temp;								// 2-D array - 10 pointers for each row
 	vector<Point> _locs = vector<Point>(100);	// Points still to target.
 	vector<Point> _checkLater;					// Points to check later
-	bool _state;								// Returns whether or not the computer is making targeted attacks
+	bool _state, _cpuPlayer;								// Returns whether or not the computer is making targeted attacks
 	vector<Ship> _ships;
 };
