@@ -20,11 +20,41 @@ void Point::userAssigned()
 	int yI, xI;
 	char xC;
 	bool run = true;
+	int errors;
+	string ui = "";
 	while (run)
 	{
-		cout << "Enter Starting Point" << endl;
-		xI = xStringToIndex(xC);
-		yI = yInputToIndex();
+		cout << "Enter a point (e.g. A6 or J10, etc.): ";
+		cin >> ui;
+		xC = ui[0];
+		xI = int(ui[0]);
+
+		if (xI >= 97 && xI <= 106) {
+			xI -= 97;
+		}
+		else if (xI >= 65 && xI <= 74) {
+			xI -= 65;
+		}
+		else {
+			cout << "Column Input Error, please try again." << endl;
+			cin.clear();
+			cin.ignore(10000, '\n');
+			xI = 0;
+			ui = "";
+		}
+		yI = ui[1];
+		yI = (ui[1]) - 48; // ASCII code for '0' is 48
+		if (yI <= 10 && yI >= 1) 
+		{
+			yI--;						// Board is 1-10; Array is 0-9; so, subtract one.
+		}
+		else 
+		{
+			cout << "Row Input Error, please try again." << endl;
+			cin.clear();
+			cin.ignore(10000, '\n');
+		}
+
 		cout << "Did you mean " << xC << yI + 1 << "? Y/N: ";
 		string input;
 		cin.clear();
@@ -34,8 +64,18 @@ void Point::userAssigned()
 		{
 			run = false;
 		}
+		else if (input[0] == 'N' || input[0] == 'n')
+		{
+			// intentionally empty
+		}
+		else
+		{
+			cout << "There was some kind of error; Try this way:" << endl;
+			xI = xStringToIndex(xC);
+			yI = yInputToIndex();
+			run = false;
+		}
 	}
-	
 	this->xChar = xC;
 	this->x = xI;
 	this->y = yI;

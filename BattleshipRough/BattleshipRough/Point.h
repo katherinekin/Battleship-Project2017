@@ -1,10 +1,6 @@
 #ifndef POINT_H
 #define POINT_H
-//<<<<<<< HEAD
-#include <iostream>
-//=======
 #include <ostream>
-//>>>>>>> Katherine2
 
 using namespace std;
 
