@@ -19,7 +19,8 @@ struct Point
 	void userAssigned();
 	int xStringToIndex(char& c);
 	int yInputToIndex();
-	friend Point operator==(const Point& lhs, const Point& rhs);
+	bool isEqualTo(Point p);
+	//friend Point operator==(const Point& lhs, const Point& rhs);
 //=======
 	bool operator==(const Point& rhs) const;
 //>>>>>>> Katherine2

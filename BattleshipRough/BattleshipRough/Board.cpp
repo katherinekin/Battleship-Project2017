@@ -9,7 +9,7 @@ const int ROW = 10;
 
 Board::Board()
 {
-	
+	sunkenShips = 0;
 	_boardArray = new int[ROW*ROW];
 	_temp = new int*[ROW];
 	_state = 0;
@@ -127,8 +127,14 @@ bool Board::addShip(Ship s)
 		Point tempPoint = tempPoints[i];
 		this->setPointState(tempPoint, 1);
 	}
-	
+	_ships.push_back(s);
+	cout << "SHIP ADDED" << endl;
 	return true;
+}
+
+vector<Ship> Board::getShips()
+{
+	return _ships;
 }
 
 void Board::setTemp(int ** temp)

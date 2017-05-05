@@ -15,7 +15,12 @@ public:
 	~Board();
 	void setCpuPlayer(bool cpuPlayer);
 	bool getCpuPlayer();
-
+	int sunkenShips;
+	/*
+	virtual void turn() { 
+		// empty 
+	}
+	*/
 	void setPointState(Point p, int state);
 	int getPointState(Point p);
 
@@ -35,6 +40,7 @@ public:
 	bool getState();			// making targeted attacks following a 'hit'
 
 	bool addShip(const Ship s);
+	vector<Ship> getShips();
 
 	friend ostream& operator<<(ostream& os, const Board board);
 

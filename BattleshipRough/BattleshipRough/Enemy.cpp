@@ -48,6 +48,48 @@ void Enemy::turn(int **temp, int board[])
 	}
 
 }
+void Enemy::turn(Board board)
+{
+	if (_state == 0)
+	{
+		RandomHitOrMiss(board.getTemp(), board.getBoardArray());
+	}
+	else if (_state == 1)
+	{
+		FindTheShip(board.getTemp(), board.getBoardArray());
+	}
+	Point ls = getLastStrike();
+	vector<Point> points;
+	if (board.getPointState(ls) == 1)
+	{
+		board.setPointState(ls, 9);
+		bool isShip = false;
+		for (int i = 0; i < board.getShips().size(); i++)
+		{
+			points = board.getShips()[i].getPoints();
+			for (int j = 0; j < points.size(); j++)
+			{
+				if (ls.x == points[j].x && ls.y == points[j].y)
+				{
+					isShip = true;
+				}
+			}
+			if (isShip == true)
+			{
+				board.getShips()[i].setNoOfSpaces(board.getShips()[i].getNoOfSpaces() - 1);
+				cout << "They hit your " << board.getShips()[i].getShipName() << " (" << board.getShips()[i].getNoOfSpaces() << " spaces left)" << endl;
+				if (board.getShips()[i].getNoOfSpaces() == 0)
+				{
+					cout << "They've sunk your " << board.getShips()[i].getShipName() << "!" << endl;
+					board.sunkenShips++;
+				}
+			}
+			isShip = false;
+		}
+	}
+	else
+		board.setPointState(ls, 5);
+}
 void Enemy::RandomHitOrMiss(int **temp, int board[])
 {
 	int index = rand() % _locs.size();

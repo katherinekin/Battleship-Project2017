@@ -143,6 +143,15 @@ int Point::yInputToIndex()
 	return yI;
 }
 
+bool Point::isEqualTo(Point p)
+{
+	bool isEqual;
+	if (this->x == p.x && this->y == p.y)
+		return true;
+	else
+		return false;
+}
+
 ostream& operator<<(ostream& os, const Point& point)
 {
 	char xChar = 'A' + point.x; // Convert column integer 0-9 to letters A-I

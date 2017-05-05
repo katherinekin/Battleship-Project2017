@@ -6,6 +6,7 @@
 #include<string>
 #include"Point.h"
 #include"Ship.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ public:
 	Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state, vector<Ship> &someShips);
 
 	void turn(int **temp, int board[]);
+	void turn(Board board);
 	void RandomHitOrMiss(int **temp, int board[]);
 	void FocusedHitOrMiss(int **temp, int board[], int index, Point p);
 
