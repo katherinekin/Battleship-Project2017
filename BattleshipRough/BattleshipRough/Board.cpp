@@ -128,7 +128,6 @@ bool Board::addShip(Ship s)
 		this->setPointState(tempPoint, 1);
 	}
 	_ships.push_back(s);
-	cout << "SHIP ADDED" << endl;
 	return true;
 }
 

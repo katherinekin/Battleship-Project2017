@@ -19,18 +19,21 @@ vector<Ship> ManualBoard(Board board);
 int main()
 {
 	srand(time(0)); // makes everything more randomer
-
+	cout << "Testing isEqualTo() member function of Point class:" << endl;
 	//Testing isEqualTo member function for point
 	Point a = Point(1, 1);
 	Point b = Point(1, 1);
 	Point c = Point(1, 2);
 	Point d = Point(2, 1);
-	Point e = Point(5, 10);
+	Point e = Point(5, 8);
 
-	cout << a.isEqualTo(b) << endl; // should be true
-	cout << a.isEqualTo(c) << endl; // false
-	cout << a.isEqualTo(d) << endl; // false
-	cout << a.isEqualTo(e) << endl; // false
+	cout << "Is " << a << " equal to " << b << "? " << a.isEqualTo(b) << endl; // should be true
+	cout << "Is " << a << " equal to " << c << "? " << a.isEqualTo(c) << endl; // false
+	cout << "Is " << a << " equal to " << d << "? " << a.isEqualTo(d) << endl; // false
+	cout << "Is " << a << " equal to " << e << "? " << a.isEqualTo(e) << endl; // false
+	system("pause");
+	system("cls");
+
 
 	Player playerBoard = Player();
 	Enemy enemyBoard = Enemy();
@@ -38,19 +41,17 @@ int main()
 	vector<Ship> theirShips;
 	//enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
 
+	// Take input from Splash Screen and set board pieces
 	int option = splashScreen();
-	string ui = "";
-	if (option == 1)
-	{
-		myShips = ManualBoard(playerBoard);
-	}
-	else if (option == 2)
-	{
-		myShips = RandomBoard(playerBoard);
-	}
 	cin.clear();
 	cin.ignore();
+	if (option == 1)
+		myShips = ManualBoard(playerBoard);
+	else if (option == 2)
+		myShips = RandomBoard(playerBoard);
+
 	system("cls");
+
 	theirShips = RandomBoard(enemyBoard);
 	enemyBoard.addShips(theirShips);
 	enemyBoard.printShips();
