@@ -12,7 +12,7 @@ Board::Board()
 	sunkenShips = 0;
 	_boardArray = new int[ROW*ROW];
 	_temp = new int*[ROW];
-	_state = 0;
+	//_state = 0;
 	_cpuPlayer = false;
 
 	for (int r = 0; r < ROW; r++)
@@ -98,7 +98,7 @@ int ** Board::getTemp()
 {
 	return _temp;
 }
-
+/*
 void Board::setState(bool state)
 {
 	_state = state;
@@ -108,7 +108,7 @@ bool Board::getState()
 {
 	return _state;
 }
-
+*/
 bool Board::addShip(Ship s)
 {
 	vector<Point> tempPoints = s.getPoints();
@@ -132,9 +132,27 @@ bool Board::addShip(Ship s)
 	return true;
 }
 
+void Board::addShips(vector<Ship> ships)
+{
+	_ships = ships;
+}
+
 vector<Ship> Board::getShips()
 {
 	return _ships;
+}
+
+void Board::printShips()
+{
+	Ship temp;
+	for (int i = 0; i < _ships.size(); i++)
+	{
+		temp = _ships[i];
+		cout << temp.getShipName() << " ";
+		for (int j = 0; j < temp.getPoints().size(); j++)
+			cout << temp.getPoints()[j] << " ";
+		cout << endl;
+	}
 }
 
 void Board::setTemp(int ** temp)

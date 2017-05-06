@@ -3,16 +3,14 @@
 #include<vector>
 #include<string>
 #include"Enemy.h"
-#include"Point.h"
-#include"PlaceShip.h"
-#include"Ship.h"
+
 
 using namespace std;
 
-Enemy::Enemy()
+Enemy::Enemy() : Board()
 {
 		//rewrite the vector statements
-	_locs;
+	//_locs;
 	_checkLater;
 	_hits;
 	_misses;
@@ -24,14 +22,14 @@ Enemy::~Enemy()
 {
 	//
 }
-Enemy::Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state, vector<Ship> &someShips)
+Enemy::Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state, vector<Ship> &someShips) : Board()
 {
-	_locs = locs;
+	//_locs = locs;
 	_checkLater = checkLater;
 	_hits;
 	_misses;
 	_state = state;
-	_someShips = someShips;	//when this is empty, win condition
+	//_someShips = someShips;	//when this is empty, win condition
 	_hitShips;
 	_lastStrike;
 }
@@ -92,9 +90,9 @@ void Enemy::turn(Board board)
 }
 void Enemy::RandomHitOrMiss(int **temp, int board[])
 {
-	int index = rand() % _locs.size();
+	int index = rand() % this->getLocs().size();
 
-	Point p = _locs.at(index);
+	Point p = this->getLocs().at(index);
 	int x = p.x;
 	int y = p.y;
 	
@@ -143,11 +141,12 @@ vector<Point> Enemy::getHits()
 	return _hits;
 }
 
+/*
 vector<Ship> Enemy::getShips()
 {
 	return _someShips;
 }
-
+*/
 void Enemy::Hit(int index, Point p)
 {
 	_hits.push_back(p);
@@ -155,11 +154,12 @@ void Enemy::Hit(int index, Point p)
 	//check if p is in _locs or _checkLater before deleting
 	int x = p.x;
 	int y = p.y;
-	for (int i = 0; i < _locs.size(); i++)
+	vector<Point> locs = this->getLocs();
+	for (int i = 0; i < locs.size(); i++)
 	{
-		if (x == _locs.at(i).x && y == _locs.at(i).y)
+		if (x == locs.at(i).x && y == locs.at(i).y)
 		{
-			_locs.erase(_locs.begin() + i);
+			locs.erase(locs.begin() + i);
 		}
 	}
 
@@ -185,11 +185,12 @@ void Enemy::Miss(int index, Point p)
 	int y = p.y;
 	
 	_misses.push_back(p);
-	for (int i = 0; i < _locs.size(); i++)
+	vector<Point> locs = this->getLocs();
+	for (int i = 0; i < locs.size(); i++)
 	{
-		if (x == _locs.at(i).x && y == _locs.at(i).y)
+		if (x == locs.at(i).x && y == locs.at(i).y)
 		{
-			_locs.erase(_locs.begin() + i);
+			locs.erase(locs.begin() + i);
 		}
 		
 	}
@@ -218,13 +219,13 @@ void Enemy::removeAdjSpaces(int x, int y)
 	//(a, y) (b, y) (x, c) (y, d)
 	//need to place in another vector for potential spaces to checkLater
 	//counting backwards so that when the point is removed and the indices are changed, does not skip points
-
-	for (int i = _locs.size() - 1; i >= 0; i--)
+	vector<Point> locs = this->getLocs();
+	for (int i = locs.size() - 1; i >= 0; i--)
 	{
-		Point p = _locs.at(i);
+		Point p = locs.at(i);
 		if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
 		{
-			_locs.erase(_locs.begin() + i);
+			locs.erase(locs.begin() + i);
 			_checkLater.push_back(p);
 			//cout << "Removed " << p << endl;
 		}
@@ -237,9 +238,9 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 	bool FoundShip = false;  
 	Ship ship;
 
-	for (int i = _someShips.size()-1; i >= 0; i--)
+	for (int i = this->getShips().size()-1; i >= 0; i--)
 	{
-		ship = _someShips.at(i);
+		ship = this->getShips().at(i);
 		vector<Point> coord = ship.getPoints();
 
 		for (int j = coord.size() - 1; j >= 0; j--)
@@ -255,7 +256,8 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 				//set size to look for ship
 				ship.setNoOfSpaces(ship.getNoOfSpaces() - 1);
 				_hitShips.push_back(ship);	//adds ship with new size;
-				_someShips.erase(_someShips.begin() + i);
+				vector<Ship> ships = this->getShips();
+				ships.erase(ships.begin() + i);
 
 				cout << "The size of this ship is now " << ship.getNoOfSpaces() << endl;
 				FoundShip = true;
@@ -321,9 +323,9 @@ void Enemy::FindTheShip(int **temp, int board[])
 	int c = y - 1;
 	int d = y + 1;
 	
-	for (int index = _locs.size() - 1; index >= 0; index--)
+	for (int index = this->getShips().size() - 1; index >= 0; index--)
 	{
-		Point p = _locs.at(index);
+		Point p = this->getLocs().at(index);
 		if ((p.x == a && p.y == y) || (p.x == b && p.y == y) || (p.x == x && p.y == c) || (p.x == x && p.y == d))
 		{
 			//cout << "I will check if there is a ship in _locs at: " << p <<endl;

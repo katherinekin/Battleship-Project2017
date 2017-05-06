@@ -33,10 +33,11 @@ int main()
 	cout << a.isEqualTo(e) << endl; // false
 
 	Player playerBoard = Player();
-	Board enemyBoard = Board();
+	Enemy enemyBoard = Enemy();
 	vector<Ship> myShips;
 	vector<Ship> theirShips;
 	//enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
+
 	int option = splashScreen();
 	string ui = "";
 	if (option == 1)
@@ -50,17 +51,20 @@ int main()
 	cin.clear();
 	cin.ignore();
 	system("cls");
+	theirShips = RandomBoard(enemyBoard);
+	enemyBoard.addShips(theirShips);
+	enemyBoard.printShips();
+	cout << "The Enemy's board has been set." << endl;
+
+	playerBoard.addShips(myShips);
+	playerBoard.printShips();
 	cout << playerBoard;
 	cout << endl << "Your board has been set." << endl;
-	theirShips = RandomBoard(enemyBoard);
-	cout << "The Enemy's board has been set." << endl;
+
 	//system("pause");
 
 	bool state = 0;
 
-	//Enemy comp(locs, checkLater, state);
-	Enemy comp(playerBoard.getLocs(), playerBoard.getCheckLater(), state, myShips);	//initialize comp
-	//Player player(enemyBoard.getLocs(), theirShips);
 	//computer keeps going until player exits or types 'Q'
 	char userInput;
 	cout << "Press enter to allow the computer to move" << endl;
@@ -84,7 +88,9 @@ int main()
 		
 		//comp.turn(playerBoard.getTemp(), playerBoard.getBoardArray());
 
-		comp.turn(playerBoard);
+		enemyBoard.turn(playerBoard);
+
+
 		if (playerBoard.sunkenShips == myShips.size())
 		{
 			cout << "YOU LOSE." << endl;
@@ -98,9 +104,8 @@ int main()
 
 		cout << "YOUR MOVE" << endl;
 		cout << enemyBoard << endl;
-		playerBoard.turn(enemyBoard.getTemp(), enemyBoard.getBoardArray(), enemyBoard);
-
-		//player.turn(enemyBoard);
+		//playerBoard.turn(enemyBoard.getTemp(), enemyBoard.getBoardArray(), enemyBoard);
+		playerBoard.turn(enemyBoard);
 		cout << enemyBoard;
 
 		cin.clear();

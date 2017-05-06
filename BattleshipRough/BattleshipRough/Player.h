@@ -1,5 +1,4 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once
 #include <iostream>
 #include <random>
 #include <vector>
@@ -21,7 +20,7 @@ public:
 	int sunkenShips;
 
 	void turn(int **temp, int board[], Board enemyBoard);
-	//void turn(Enemy board);
+	void turn(Board board);
 
 
 	void Hit(Point p);
@@ -43,4 +42,3 @@ private:
 	Point _lastStrike;
 	bool _state;
 };
-#endif //PLAYER_H

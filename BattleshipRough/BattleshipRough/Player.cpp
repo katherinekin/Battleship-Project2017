@@ -47,8 +47,7 @@ void Player::turn(int ** temp, int board[], Board enemyBoard)
 			Miss(p);
 		}
 	}
-	_lastStrike = p;
-	Point ls = _lastStrike;
+	Point ls = getLastStrike();
 	vector<Point> points;
 	if (temp[ls.x][ls.y] == 1)	// Point State reference:
 	{
@@ -56,6 +55,7 @@ void Player::turn(int ** temp, int board[], Board enemyBoard)
 		
 		
 		vector<Ship> theirShips = enemyBoard.getShips();
+		cout << enemyBoard.getShips().size() << endl;
 		cout << theirShips.size() << endl;
 		cout << this->getShips().size() << endl;
 		cout << "Can't seem to get these to work. Player.cpp" << endl;
@@ -93,13 +93,13 @@ void Player::turn(int ** temp, int board[], Board enemyBoard)
 	else
 		enemyBoard.setPointState(ls, 5);
 }
-/*
-void Player::turn(Enemy board)
+
+void Player::turn(Board board)
 {
 	Point p;
 	p.userAssigned();
 	system("cls");
-	int ** temp = this->getTemp();
+	int ** temp = board.getTemp();
 	if (temp[p.x][p.y] != 1 && temp[p.x][p.y] != 0)
 		cout << "You already tried that space. You lose your turn." << endl;
 	else
@@ -115,6 +115,7 @@ void Player::turn(Enemy board)
 			Miss(p);
 		}
 	}
+	_lastStrike = p;
 	Point ls = getLastStrike();
 	vector<Point> points;
 	if (board.getPointState(ls) == 1)	// Point State reference:
@@ -140,20 +141,20 @@ void Player::turn(Enemy board)
 				if (board.getShips()[i].getNoOfSpaces() == 0)
 				{
 					cout << "You've sunk their " << board.getShips()[i].getShipName() << "!" << endl;
-					enemySunken++;
+					// add to sunkenShip
 				}
 			}
 			isShip = false;
 		}
 	}
-	else if (enemyBoard.getPointState(ls) == 9 || enemyBoard.getPointState(ls) == 5)
+	else if (board.getPointState(ls) == 9 || board.getPointState(ls) == 5)
 	{
 		// Do nothing.
 	}
 	else
-		enemyBoard.setPointState(ls, 5);
+		board.setPointState(ls, 5);
 }
-*/
+
 
 
 void Player::Hit(Point p)

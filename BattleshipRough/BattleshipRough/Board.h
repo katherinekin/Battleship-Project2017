@@ -36,11 +36,14 @@ public:
 	void setTemp(int** temp);
 	int** getTemp();
 
+	/*
 	void setState(bool state);	// A state of 1 indicates the computer should be
 	bool getState();			// making targeted attacks following a 'hit'
-
+	*/
 	bool addShip(const Ship s);
+	void addShips(vector<Ship> ships);
 	vector<Ship> getShips();
+	void printShips();
 
 	friend ostream& operator<<(ostream& os, const Board board);
 
@@ -49,6 +52,6 @@ private:
 	int** _temp;								// 2-D array - 10 pointers for each row
 	vector<Point> _locs = vector<Point>(100);	// Points still to target.
 	vector<Point> _checkLater;					// Points to check later
-	bool _state, _cpuPlayer;								// Returns whether or not the computer is making targeted attacks
+	bool _cpuPlayer;					// Returns whether or not the computer is making targeted attacks
 	vector<Ship> _ships;
 };

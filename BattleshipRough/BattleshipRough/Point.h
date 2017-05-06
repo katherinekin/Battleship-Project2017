@@ -1,5 +1,4 @@
-#ifndef POINT_H
-#define POINT_H
+#pragma once
 #include <ostream>
 
 using namespace std;
@@ -27,4 +26,3 @@ struct Point
 	friend ostream& operator<<(ostream& os, const Point& point);
 
 };
-#endif //POINT_H
