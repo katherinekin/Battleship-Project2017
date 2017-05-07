@@ -24,11 +24,15 @@ public:
 	void setPointState(Point p, int state);
 	int getPointState(Point p);
 
+	void printPointVector(vector<Point> points);
+
 	void setLocs(vector<Point> locs);
 	vector<Point> getLocs();
+	void printLocs();
 
 	void setCheckLater(vector<Point> checkLater);
 	vector<Point> getCheckLater();
+	void printCheckLater();
 	
 	void setBoardArray(int* boardArray);
 	int* getBoardArray();
@@ -42,8 +46,17 @@ public:
 	*/
 	bool addShip(const Ship s);
 	void addShips(vector<Ship> ships);
+	void setShips(vector<Ship> ships);
 	vector<Ship> getShips();
 	void printShips();
+
+	vector<Point> getHits();
+	void setHits(vector<Point> hits);
+	void printHits();
+
+	vector<Point> getMisses();
+	void setMisses(vector<Point> misses);
+	void printMisses();
 
 	friend ostream& operator<<(ostream& os, const Board board);
 
@@ -54,4 +67,6 @@ private:
 	vector<Point> _checkLater;					// Points to check later
 	bool _cpuPlayer;					// Returns whether or not the computer is making targeted attacks
 	vector<Ship> _ships;
+	vector<Point> _hits;
+	vector<Point> _misses;
 };

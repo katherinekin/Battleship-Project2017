@@ -1,5 +1,5 @@
 ﻿  Point.cpp
-c:\users\breadslice\battleship\bs7\battleshiprough\battleshiprough\point.cpp(23): warning C4101: 'errors': unreferenced local variable
+c:\users\breadslice\battleship\bs7\battleshiprough\battleshiprough\point.cpp(24): warning C4101: 'errors': unreferenced local variable
 c:\users\breadslice\battleship\bs7\battleshiprough\battleshiprough\point.cpp(161): warning C4101: 'isEqual': unreferenced local variable
   BattleshipRough.vcxproj -> C:\Users\breadslice\Battleship\bs7\BattleshipRough\Debug\BattleshipRough.exe
   BattleshipRough.vcxproj -> C:\Users\breadslice\Battleship\bs7\BattleshipRough\Debug\BattleshipRough.pdb (Partial PDB)

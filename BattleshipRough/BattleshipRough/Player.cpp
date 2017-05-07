@@ -4,8 +4,8 @@ Player::Player() : Board()
 {
 	//rewrite the vector statements
 	// _locs;
-	_hits;
-	_misses;
+	//_hits;
+	//_misses;
 
 }
 
@@ -16,8 +16,8 @@ Player::~Player()
 Player::Player(vector<Point>& locs, vector<Ship>& someShips) : Board()
 {
 	// _locs = locs;
-	_hits;
-	_misses;
+	//_hits;
+	//_misses;
 	//_someShips = someShips;	//when this is empty, win condition
 	_hitShips;
 	_lastStrike;
@@ -94,7 +94,7 @@ void Player::turn(int ** temp, int board[], Board enemyBoard)
 		enemyBoard.setPointState(ls, 5);
 }
 
-void Player::turn(Board board)
+void Player::turn(Board &board)
 {
 	Point p;
 	p.userAssigned();
@@ -118,13 +118,15 @@ void Player::turn(Board board)
 	_lastStrike = p;
 	Point ls = getLastStrike();
 	vector<Point> points;
+	vector<Ship> ships;
 	if (board.getPointState(ls) == 1)	// Point State reference:
 	{
 		board.setPointState(ls, 9);	// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
 		bool isShip = false;
-		for (int i = 0; i < board.getShips().size(); i++)
+		ships = board.getShips();
+		for (int i = 0; i < ships.size(); i++)
 		{
-			points = board.getShips()[i].getPoints();
+			points = ships[i].getPoints();
 			for (int j = 0; j < points.size(); j++)
 			{
 				if (ls.x == points[j].x && ls.y == points[j].y)
@@ -134,13 +136,13 @@ void Player::turn(Board board)
 			}
 			if (isShip == true) 
 			{
-				board.getShips()[i].setNoOfSpaces(board.getShips()[i].getNoOfSpaces() - 1);
-				cout << "You hit their " << board.getShips()[i].getShipName() << " (" << board.getShips()[i].getNoOfSpaces() << " spaces left)" << endl;
-				vector<Ship> ships = board.getShips();
-				vector<Ship> ships2 = getShips();
-				if (board.getShips()[i].getNoOfSpaces() == 0)
+				ships[i].setNoOfSpaces(ships[i].getNoOfSpaces() - 1);
+				cout << "You hit their " << ships[i].getShipName() << " (" << ships[i].getNoOfSpaces() << " spaces left)" << endl;
+				board.setShips(ships);
+				board.printShips();
+				if (ships[i].getNoOfSpaces() == 0)
 				{
-					cout << "You've sunk their " << board.getShips()[i].getShipName() << "!" << endl;
+					cout << "You've sunk their " << ships[i].getShipName() << "!" << endl;
 					// add to sunkenShip
 				}
 			}
@@ -159,7 +161,7 @@ void Player::turn(Board board)
 
 void Player::Hit(Point p)
 {
-	_hits.push_back(p);
+	this->getHits().push_back(p);
 	//should call the draw function to change graphics of the board corresponding to HIT
 	//check if p is in _locs or _checkLater before deleting
 	int x = p.x;
@@ -172,6 +174,7 @@ void Player::Hit(Point p)
 			locs.erase(locs.begin() + i);
 		}
 	}
+	this->setLocs(locs);
 }
 
 void Player::Miss(Point p)
@@ -181,24 +184,23 @@ void Player::Miss(Point p)
 	int x = p.x;
 	int y = p.y;
 
-	_misses.push_back(p);
-	for (int i = 0; i < this->getLocs().size(); i++)
+	vector<Point> misses = this->getMisses();
+	misses.push_back(p);
+	this->setMisses(misses);
+	vector<Point> locs = this->getLocs();
+	for (int i = 0; i < locs.size(); i++)
 	{
-		if (x == this->getLocs().at(i).x && y == this->getLocs().at(i).y)
-		{
-			vector<Point> a = this->getLocs();
-			a.erase(a.begin() + i);
-		}
-
+		if (x == locs.at(i).x && y == locs.at(i).y)
+			locs.erase(locs.begin() + i);
 	}
-
+	this->setLocs(locs);
 }
-
+/*
 vector<Point> Player::getHits()
 {
 	return _hits;
 }
-
+*/
 
 
 Point Player::getLastStrike()

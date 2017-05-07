@@ -34,9 +34,11 @@ int main()
 	system("pause");
 	system("cls");
 
-
+	// Initialize Boards
 	Player playerBoard = Player();
 	Enemy enemyBoard = Enemy();
+	
+	// Initialize Ship vectors
 	vector<Ship> myShips;
 	vector<Ship> theirShips;
 	//enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
@@ -52,9 +54,12 @@ int main()
 
 	system("cls");
 
+
 	theirShips = RandomBoard(enemyBoard);
 	enemyBoard.addShips(theirShips);
+	
 	enemyBoard.printShips();
+	
 	cout << "The Enemy's board has been set." << endl;
 
 	playerBoard.addShips(myShips);
@@ -90,7 +95,7 @@ int main()
 		//comp.turn(playerBoard.getTemp(), playerBoard.getBoardArray());
 
 		enemyBoard.turn(playerBoard);
-
+		playerBoard.printShips();
 
 		if (playerBoard.sunkenShips == myShips.size())
 		{
@@ -108,6 +113,7 @@ int main()
 		//playerBoard.turn(enemyBoard.getTemp(), enemyBoard.getBoardArray(), enemyBoard);
 		playerBoard.turn(enemyBoard);
 		cout << enemyBoard;
+		enemyBoard.printShips();
 
 		cin.clear();
 		cin.ignore();

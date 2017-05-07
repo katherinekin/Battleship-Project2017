@@ -20,13 +20,13 @@ public:
 	int sunkenShips;
 
 	void turn(int **temp, int board[], Board enemyBoard);
-	void turn(Board board);
+	void turn(Board &board);
 
 
 	void Hit(Point p);
 	void Miss(Point p);
 
-	vector<Point> getHits();
+	//vector<Point> getHits();
 	//vector<Ship> getShips();
 
 	Point getLastStrike();
@@ -34,8 +34,8 @@ public:
 
 private:
 	//vector<Point> _locs;
-	vector<Point> _hits;
-	vector<Point> _misses;
+	//vector<Point> _hits;
+	//vector<Point> _misses;
 	//vector<Ship> _someShips;
 	vector<Ship> _hitShips;
 

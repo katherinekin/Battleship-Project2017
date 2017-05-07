@@ -64,14 +64,32 @@ int Board::getPointState(Point p)
 	return state;
 }
 
+void Board::printPointVector(vector<Point> points)
+{
+	for (int i = 0; i < points.size(); i++)
+		cout << points[i] << " ";
+	cout << endl;
+}
+
 vector<Point> Board::getLocs()
 {
 	return _locs;
 }
 
+void Board::printLocs()
+{
+	printPointVector(_locs);
+}
+
 vector<Point> Board::getCheckLater()
 {
 	return _checkLater;
+}
+
+void Board::printCheckLater()
+{
+	cout << "Check Later: ";
+	printPointVector(_checkLater);
 }
 
 void Board::setLocs(vector<Point> locs)
@@ -136,6 +154,11 @@ void Board::addShips(vector<Ship> ships)
 	_ships = ships;
 }
 
+void Board::setShips(vector<Ship> ships)
+{
+	_ships = ships;
+}
+
 vector<Ship> Board::getShips()
 {
 	return _ships;
@@ -144,14 +167,47 @@ vector<Ship> Board::getShips()
 void Board::printShips()
 {
 	Ship temp;
+	cout << "Printing Ships: " << endl;
 	for (int i = 0; i < _ships.size(); i++)
 	{
 		temp = _ships[i];
 		cout << temp.getShipName() << " ";
-		for (int j = 0; j < temp.getPoints().size(); j++)
-			cout << temp.getPoints()[j] << " ";
+		printPointVector(temp.getPoints());
+		cout << '(' << temp.getNoOfSpaces() << ')';
 		cout << endl;
 	}
+}
+
+vector<Point> Board::getHits()
+{
+	return _hits;
+}
+
+void Board::setHits(vector<Point> hits)
+{
+	_hits = hits;
+}
+
+void Board::printHits()
+{
+	cout << "HITS: ";
+	printPointVector(_hits);
+}
+
+vector<Point> Board::getMisses()
+{
+	return _misses;
+}
+
+void Board::setMisses(vector<Point> misses)
+{
+	_misses = misses;
+}
+
+void Board::printMisses()
+{
+	cout << "MISSES: ";
+	printPointVector(_misses);
 }
 
 void Board::setTemp(int ** temp)

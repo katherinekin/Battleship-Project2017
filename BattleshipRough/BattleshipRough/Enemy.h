@@ -19,11 +19,11 @@ public:
 	Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state, vector<Ship> &someShips);
 
 	void turn(int **temp, int board[]);
-	void turn(Board board);
+	void turn(Board &board);
 	void RandomHitOrMiss(int **temp, int board[]);
 	void FocusedHitOrMiss(int **temp, int board[], int index, Point p);
 
-	vector<Point> getHits();
+	//vector<Point> getHits();
 	//vector<Ship> getShips();
 
 	void Hit(int index, Point p);
@@ -40,9 +40,9 @@ public:
 		
 private:
 	//vector<Point> _locs;
-	vector<Point> _checkLater;
-	vector<Point> _hits;
-	vector<Point> _misses;
+	//vector<Point> _checkLater;
+	//vector<Point> _hits;
+	//vector<Point> _misses;
 	//vector<Ship> _someShips;
 	vector<Ship> _hitShips;
 
