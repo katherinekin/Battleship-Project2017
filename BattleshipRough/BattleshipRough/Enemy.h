@@ -1,15 +1,17 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#pragma once
 #include <iostream>
-#include<random>
-#include<vector>
-#include<string>
-#include"Point.h"
-#include"Ship.h"
+#include <random>
+#include <vector>
+#include <string>
+#include "Point.h"
+#include "Ship.h"
+#include "PlaceShip.h"
+#include "Player.h"
+#include "Board.h"
 
 using namespace std;
 
-class Enemy
+class Enemy : public Board
 {
 public:
 	Enemy();
@@ -17,11 +19,12 @@ public:
 	Enemy(vector<Point> &locs, vector<Point> &checkLater, bool state, vector<Ship> &someShips);
 
 	void turn(int **temp, int board[]);
+	void turn(Board &board);
 	void RandomHitOrMiss(int **temp, int board[]);
 	void FocusedHitOrMiss(int **temp, int board[], int index, Point p);
 
-	vector<Point> getHits();
-	vector<Ship> getShips();
+	//vector<Point> getHits();
+	//vector<Ship> getShips();
 
 	void Hit(int index, Point p);
 	void Miss(int index, Point p);
@@ -36,14 +39,13 @@ public:
 	
 		
 private:
-	vector<Point> _locs;
-	vector<Point> _checkLater;
-	vector<Point> _hits;
-	vector<Point> _misses;
-	vector<Ship> _someShips;
+	//vector<Point> _locs;
+	//vector<Point> _checkLater;
+	//vector<Point> _hits;
+	//vector<Point> _misses;
+	//vector<Ship> _someShips;
 	vector<Ship> _hitShips;
 
 	Point _lastStrike;
 	bool _state;
 };
-#endif //ENEMY_H

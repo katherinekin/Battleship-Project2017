@@ -18,6 +18,7 @@ Point:: Point(int inst_x, int inst_y)
 void Point::userAssigned()
 {
 	int yI, xI;
+	char yS;
 	char xC;
 	bool run = true;
 	int errors;
@@ -42,19 +43,26 @@ void Point::userAssigned()
 			xI = 0;
 			ui = "";
 		}
-		yI = ui[1]; // ASCII code for '0' is 48
-		if (yI == '1')
+		yS = ui[1]; // ASCII code for '0' is 48
+		if (yS == '1')
 		{
 			if (ui[2] == '0')
 				yI = 10;
 			else
 				yI = 1;
 		}
-		else {
-			yI = (ui[1]) - 48;
+		else if(int(yS) > 47 && int(yS) < 58)
+		{
+			yI = int(ui[1]) - 48;
 		}
-
-		if (yI <= 10 && yI >= 0) 
+		else
+		{
+			cout << "Row Input Error, please try again." << endl;
+			yI = 1;
+		}
+		cin.clear();
+		cin.ignore(10000, '\n');
+		if (yI <= 10 && yI >= 1) 
 		{
 			yI--;						// Board is 1-10; Array is 0-9; so, subtract one.
 		}
@@ -68,7 +76,7 @@ void Point::userAssigned()
 		cout << "Did you mean " << xC << yI + 1 << "? Y/N: ";
 		string input;
 		cin.clear();
-		cin.ignore(10000, '\n');
+		//cin.ignore(10000, '\n');
 		cin >> input;
 		if (input[0] == 'Y' || input[0] == 'y')
 		{
@@ -77,6 +85,11 @@ void Point::userAssigned()
 		else if (input[0] == 'N' || input[0] == 'n')
 		{
 			// intentionally empty
+			cout << "Try again." << endl;
+			cin.clear();
+			cin.ignore();
+			input = "";
+			ui = "";
 		}
 		else
 		{
@@ -141,6 +154,15 @@ int Point::yInputToIndex()
 		}
 	}
 	return yI;
+}
+
+bool Point::isEqualTo(Point p)
+{
+	bool isEqual;
+	if (this->x == p.x && this->y == p.y)
+		return true;
+	else
+		return false;
 }
 
 ostream& operator<<(ostream& os, const Point& point)

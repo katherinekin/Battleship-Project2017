@@ -1,5 +1,4 @@
-#ifndef PLACESHIP_H
-#define PLACESHIP_H
+#pragma once
 #include"Board.h"
 #include"Ship.h"
 #include<vector>
@@ -21,4 +20,3 @@ private:
 	bool _randomPlacement;
 	vector<Ship> _LiveShips;
 };
-#endif //PLACESHIP_H

@@ -19,36 +19,58 @@ vector<Ship> ManualBoard(Board board);
 int main()
 {
 	srand(time(0)); // makes everything more randomer
+	cout << "Testing isEqualTo() member function of Point class:" << endl;
+	//Testing isEqualTo member function for point
+	Point a = Point(1, 1);
+	Point b = Point(1, 1);
+	Point c = Point(1, 2);
+	Point d = Point(2, 1);
+	Point e = Point(5, 8);
 
-	Board sampleBoard = Board();
-	Board enemyBoard = Board();
+	cout << "Is " << a << " equal to " << b << "? " << a.isEqualTo(b) << endl; // should be true
+	cout << "Is " << a << " equal to " << c << "? " << a.isEqualTo(c) << endl; // false
+	cout << "Is " << a << " equal to " << d << "? " << a.isEqualTo(d) << endl; // false
+	cout << "Is " << a << " equal to " << e << "? " << a.isEqualTo(e) << endl; // false
+	system("pause");
+	system("cls");
+
+	// Initialize Boards
+	Player playerBoard = Player();
+	Enemy enemyBoard = Enemy();
+	
+	// Initialize Ship vectors
 	vector<Ship> myShips;
 	vector<Ship> theirShips;
-	enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
+	//enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
+
+	// Take input from Splash Screen and set board pieces
 	int option = splashScreen();
-	string ui = "";
-	if (option == 1)
-	{
-		myShips = ManualBoard(sampleBoard);
-	}
-	else if (option == 2)
-	{
-		myShips = RandomBoard(sampleBoard);
-	}
 	cin.clear();
 	cin.ignore();
+	if (option == 1)
+		myShips = ManualBoard(playerBoard);
+	else if (option == 2)
+		myShips = RandomBoard(playerBoard);
+
 	system("cls");
-	cout << sampleBoard;
-	cout << endl << "Your board has been set." << endl;
+
+
 	theirShips = RandomBoard(enemyBoard);
+	enemyBoard.addShips(theirShips);
+	
+	enemyBoard.printShips();
+	
 	cout << "The Enemy's board has been set." << endl;
+
+	playerBoard.addShips(myShips);
+	playerBoard.printShips();
+	cout << playerBoard;
+	cout << endl << "Your board has been set." << endl;
+
 	//system("pause");
 
 	bool state = 0;
 
-	//Enemy comp(locs, checkLater, state);
-	Enemy comp(sampleBoard.getLocs(), sampleBoard.getCheckLater(), state, myShips);	//initialize comp
-	Player player(enemyBoard.getLocs(), myShips);
 	//computer keeps going until player exits or types 'Q'
 	char userInput;
 	cout << "Press enter to allow the computer to move" << endl;
@@ -69,85 +91,29 @@ int main()
 			break;
 		}
 		//comp.turn(temp, board);
-		comp.turn(sampleBoard.getTemp(), sampleBoard.getBoardArray());
-		ls = comp.getLastStrike();
-		vector<Point> points;
-		if (sampleBoard.getPointState(ls) == 1)
-		{
-			sampleBoard.setPointState(ls, 9);
-			bool isShip = false;
-			for (int i = 0; i < myShips.size(); i++)
-			{
-				points = myShips[i].getPoints();
-				for (int j = 0; j < points.size(); j++)
-				{
-					if (ls.x == points[j].x && ls.y == points[j].y)
-					{
-						isShip = true;
-					}
-				}
-				if (isShip == true)
-				{
-					myShips[i].setNoOfSpaces(myShips[i].getNoOfSpaces() - 1);
-					cout << "They hit your " << myShips[i].getShipName() << " (" << myShips[i].getNoOfSpaces() << " spaces left)" << endl;
-					if (myShips[i].getNoOfSpaces() == 0)
-					{
-						cout << "They've sunk your " << myShips[i].getShipName() << "!" << endl;
-						playerSunken++;
-					}
-				}
-				isShip = false;
-			}
-		}
-		else
-			sampleBoard.setPointState(ls, 5);
-		if (playerSunken == myShips.size())
+		
+		//comp.turn(playerBoard.getTemp(), playerBoard.getBoardArray());
+
+		enemyBoard.turn(playerBoard);
+		playerBoard.printShips();
+
+		if (playerBoard.sunkenShips == myShips.size())
 		{
 			cout << "YOU LOSE." << endl;
 			system("pause");
 			break;
 		}
-		cout << sampleBoard;
+		cout << playerBoard;
 		cout << "Press enter to begin your move" << endl;
 		cin.get(userInput);
 		system("cls");
+
 		cout << "YOUR MOVE" << endl;
 		cout << enemyBoard << endl;
-		player.turn(enemyBoard.getTemp(), enemyBoard.getBoardArray());
-		ls = player.getLastStrike();
-		points.clear();
-		if (enemyBoard.getPointState(ls) == 1 || enemyBoard.getPointState(ls) == 9)	// Point State reference:
-		{
-			enemyBoard.setPointState(ls, 9);	// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
-			bool isShip = false;
-			for (int i = 0; i < theirShips.size(); i++)
-			{
-				points = theirShips[i].getPoints();
-				for (int j = 0; j < points.size(); j++)
-				{
-					if (ls.x == points[j].x && ls.y == points[j].y)
-					{
-						isShip = true;
-					}
-				}
-				if (isShip == true) 
-				{
-					theirShips[i].setNoOfSpaces(theirShips[i].getNoOfSpaces() - 1);
-					cout << "You hit their " << theirShips[i].getShipName() << " (" << theirShips[i].getNoOfSpaces() << " spaces left)" << endl;
-					vector<Ship> ships = comp.getShips();
-					vector<Ship> ships2 = player.getShips();
-					if (theirShips[i].getNoOfSpaces() == 0)
-					{
-						cout << "You've sunk their " << theirShips[i].getShipName() << "!" << endl;
-						enemySunken++;
-					}
-				}
-				isShip = false;
-			}
-		}
-		else
-			enemyBoard.setPointState(ls, 5);
+		//playerBoard.turn(enemyBoard.getTemp(), enemyBoard.getBoardArray(), enemyBoard);
+		playerBoard.turn(enemyBoard);
 		cout << enemyBoard;
+		enemyBoard.printShips();
 
 		cin.clear();
 		cin.ignore();
@@ -194,12 +160,13 @@ int splashScreen()
 	}
 	system("pause");
 	system("cls");
+	return 0;
 }
 
 
 //can be used to generate board for the player and the computer
 //returns a vector of liveships
-vector<Ship> RandomBoard(Board sampleBoard)
+vector<Ship> RandomBoard(Board board)
 {
 	int ShipSize[5] = { 5, 4, 3, 3, 2 };
 	string ShipName[5] = { "Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer" };
@@ -210,18 +177,18 @@ vector<Ship> RandomBoard(Board sampleBoard)
 	
 	for(int i = 0; i<5; i++)
 	{
-		someShips.shipAddition(sampleBoard, ShipSize[i], ShipName[i], true);
+		someShips.shipAddition(board, ShipSize[i], ShipName[i], true);
 	}
 	return someShips.getLiveShips();
 }
-vector<Ship> ManualBoard(Board sampleBoard)
+vector<Ship> ManualBoard(Board board)
 {
 	int ShipSize[5] = { 5, 4, 3, 3, 2 };
 	string ShipName[5] = { "Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer" };
 	PlaceShip someShips;
 	for (int i = 0; i<5; i++)
 	{
-		someShips.shipAddition(sampleBoard, ShipSize[i], ShipName[i]);
+		someShips.shipAddition(board, ShipSize[i], ShipName[i]);
 	}
 	return someShips.getLiveShips();
 }

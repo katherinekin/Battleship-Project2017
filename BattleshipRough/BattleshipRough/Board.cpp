@@ -9,10 +9,10 @@ const int ROW = 10;
 
 Board::Board()
 {
-	
+	sunkenShips = 0;
 	_boardArray = new int[ROW*ROW];
 	_temp = new int*[ROW];
-	_state = 0;
+	//_state = 0;
 	_cpuPlayer = false;
 
 	for (int r = 0; r < ROW; r++)
@@ -64,14 +64,32 @@ int Board::getPointState(Point p)
 	return state;
 }
 
+void Board::printPointVector(vector<Point> points)
+{
+	for (int i = 0; i < points.size(); i++)
+		cout << points[i] << " ";
+	cout << endl;
+}
+
 vector<Point> Board::getLocs()
 {
 	return _locs;
 }
 
+void Board::printLocs()
+{
+	printPointVector(_locs);
+}
+
 vector<Point> Board::getCheckLater()
 {
 	return _checkLater;
+}
+
+void Board::printCheckLater()
+{
+	cout << "Check Later: ";
+	printPointVector(_checkLater);
 }
 
 void Board::setLocs(vector<Point> locs)
@@ -98,7 +116,7 @@ int ** Board::getTemp()
 {
 	return _temp;
 }
-
+/*
 void Board::setState(bool state)
 {
 	_state = state;
@@ -108,7 +126,7 @@ bool Board::getState()
 {
 	return _state;
 }
-
+*/
 bool Board::addShip(Ship s)
 {
 	vector<Point> tempPoints = s.getPoints();
@@ -127,8 +145,69 @@ bool Board::addShip(Ship s)
 		Point tempPoint = tempPoints[i];
 		this->setPointState(tempPoint, 1);
 	}
-	
+	_ships.push_back(s);
 	return true;
+}
+
+void Board::addShips(vector<Ship> ships)
+{
+	_ships = ships;
+}
+
+void Board::setShips(vector<Ship> ships)
+{
+	_ships = ships;
+}
+
+vector<Ship> Board::getShips()
+{
+	return _ships;
+}
+
+void Board::printShips()
+{
+	Ship temp;
+	cout << "Printing Ships: " << endl;
+	for (int i = 0; i < _ships.size(); i++)
+	{
+		temp = _ships[i];
+		cout << temp.getShipName() << " ";
+		printPointVector(temp.getPoints());
+		cout << '(' << temp.getNoOfSpaces() << ')';
+		cout << endl;
+	}
+}
+
+vector<Point> Board::getHits()
+{
+	return _hits;
+}
+
+void Board::setHits(vector<Point> hits)
+{
+	_hits = hits;
+}
+
+void Board::printHits()
+{
+	cout << "HITS: ";
+	printPointVector(_hits);
+}
+
+vector<Point> Board::getMisses()
+{
+	return _misses;
+}
+
+void Board::setMisses(vector<Point> misses)
+{
+	_misses = misses;
+}
+
+void Board::printMisses()
+{
+	cout << "MISSES: ";
+	printPointVector(_misses);
 }
 
 void Board::setTemp(int ** temp)
