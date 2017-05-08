@@ -19,25 +19,6 @@ vector<Ship> ManualBoard(Board board);
 int main()
 {
 	srand(time(0)); // makes everything more randomer
-	
-	//tests to check Point::isEqualTo() function
-	/*
-	cout << "Testing isEqualTo() member function of Point class:" << endl;
-	
-	Point a = Point(1, 1);
-	Point b = Point(1, 1);
-	Point c = Point(1, 2);
-	Point d = Point(2, 1);
-	Point e = Point(5, 8);
-
-	
-	cout << "Is " << a << " equal to " << b << "? " << a.isEqualTo(b) << endl; // should be true
-	cout << "Is " << a << " equal to " << c << "? " << a.isEqualTo(c) << endl; // false
-	cout << "Is " << a << " equal to " << d << "? " << a.isEqualTo(d) << endl; // false
-	cout << "Is " << a << " equal to " << e << "? " << a.isEqualTo(e) << endl; // false
-	system("pause");
-	system("cls");
-	*/
 
 	// Initialize Boards
 	Player playerBoard = Player();
@@ -46,7 +27,7 @@ int main()
 	// Initialize Ship vectors
 	vector<Ship> myShips;
 	vector<Ship> theirShips;
-	//enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
+	enemyBoard.setCpuPlayer(true); //this line sets the board to only display hits and misses.
 
 	// Take input from Splash Screen and set board pieces
 	int option = splashScreen();
@@ -61,33 +42,45 @@ int main()
 
 	theirShips = RandomBoard(enemyBoard);
 	enemyBoard.addShips(theirShips);
-	enemyBoard.printShips();
+	//enemyBoard.printShips();
 	
 	cout << "The Enemy's board has been set." << endl;
 
 	playerBoard.addShips(myShips);
-	playerBoard.printShips();
+	//playerBoard.printShips();
 	cout << playerBoard;
 	cout << endl << "Your board has been set." << endl;
 
-	//system("pause");
+
+	cin.clear();
 
 	bool state = 0;
 
 	//computer keeps going until player exits or types 'Q'
 	char userInput;
-	cout << "Press enter to allow the computer to move" << endl;
+	cout << "Press enter to begin the game!" << endl;
 	cin.get(userInput);
 	system("cls");
+	/*
 	int enemySunken = 0;
 	int playerSunken = 0;
+	*/
+	vector<Ship> ships;
 	Point ls;
+	int counter = 0; 
 
-	//can change to win condition
 	while (!(userInput == 'Q'))
 	{
 		cin.clear();
-		if (enemySunken == theirShips.size())
+		// Checking if any ships are left
+		ships = enemyBoard.getShips();
+		counter = 0;
+		for (int i = 0; i < ships.size(); i++)
+		{
+			if (ships[i].getNoOfSpaces() == 0)
+				counter++;
+		}
+		if (counter == ships.size())
 		{
 			cout << "YOU WIN!" << endl;
 			system("pause");
@@ -97,9 +90,16 @@ int main()
 		//comp.turn(playerBoard.getTemp(), playerBoard.getBoardArray());
 
 		enemyBoard.turn(playerBoard);
-		playerBoard.printShips();
 
-		if (playerBoard.sunkenShips == myShips.size())
+		// Checking if any ships are left
+		ships = playerBoard.getShips();
+		counter = 0;
+		for (int i = 0; i < ships.size(); i++)
+		{
+			if (ships[i].getNoOfSpaces() == 0)
+				counter++;
+		}
+		if (counter == ships.size())
 		{
 			cout << "YOU LOSE." << endl;
 			system("pause");
@@ -112,13 +112,11 @@ int main()
 
 		cout << "YOUR MOVE" << endl;
 		cout << enemyBoard << endl;
-		//playerBoard.turn(enemyBoard.getTemp(), enemyBoard.getBoardArray(), enemyBoard);
 
 		//Player's turn (comment out to troubleshoot CPU)
 		playerBoard.turn(enemyBoard);
 		cout << enemyBoard;
-		enemyBoard.printShips();
-		//
+		//enemyBoard.printShips();
 
 		cin.clear();
 		cin.ignore();
