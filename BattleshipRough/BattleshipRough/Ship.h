@@ -27,6 +27,9 @@ public:
 	vector<Point> getPoints();
 	void setPoints(vector<Point> points);
 
+	void setIsNotHit(bool isHit);
+	bool getIsNotHit();
+
 protected:
 	int _noOfSpaces;
 	string _shipName;
@@ -34,4 +37,5 @@ protected:
 	bool _vertical, _sunk;
 	Point _startingPoint;
 	vector<Point> _points;
+	bool _isNotHit;
 };

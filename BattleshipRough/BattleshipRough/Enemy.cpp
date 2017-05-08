@@ -194,8 +194,11 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 {
 	//Loop through to find which ship was hit, sets the size needed to sink the ship
 	Point hit = _lastHit;
+	cout << "_lastHit = " << hit <<endl;
+
 	//bool FoundShip = false;  
 	Ship ship = _someShips.at(0);	//initialize the pointer to a ship
+	
 
 	for (int i = 0; i <_someShips.size(); i++)
 	{
@@ -211,9 +214,12 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 				//get ship name
 				cout << "The ship I am looking for is the " << ship.getShipName() << endl;
 				cout << "The size of this ship is " << ship.getNoOfSpaces() << endl;
+				
 
 				_ShipVectIndex = i;
 				ship.setNoOfSpaces(ship.getNoOfSpaces() - 1);
+				ship.setIsNotHit(false);
+				cout << "IsNotHit is " << ship.getIsNotHit() << endl;
 
 				//replace old ship with new ship without changing order
 				_someShips.erase(_someShips.begin() + i);
@@ -228,13 +234,19 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 				if (ship.getNoOfSpaces() == 0)
 				{
 					cout << "The " << ship.getShipName() << " has been sunk!" << endl;
-					//remove all coordinates from _hits
-					//RemoveHits(ship);
-					_state = 0;
-					//else statement to get previous hit, figure out algorithm
+					ship.setIsNotHit(true);	//sets it back to true, don't try to sink anymore
+					
+					//replace old ship with new ship without changing order
+					_someShips.erase(_someShips.begin() + i);
+					_someShips.insert(_someShips.begin() + i, ship);
 
+					//check win condition
+
+					checkForHitShips();
+					//_state = 0;
 					break;
 				}
+				
 			}
 		}
 	}
@@ -278,6 +290,24 @@ void Enemy::firstStrike()	//gives info on what type of ship was hit
 		}
 	}
 	*/
+}
+void Enemy:: checkForHitShips()
+{
+	Ship ship = _someShips.at(0);
+	for (int i = 0; i < _someShips.size(); i++)
+	{
+		ship = _someShips.at(i);
+		if (ship.getIsNotHit() == false)	//false means it is hit
+		{
+			_lastHit = _hits[i].back();
+			_state = 1;
+			break;
+		}
+		else
+		{
+			_state = 0;
+		}
+	}
 }
 
 /*
@@ -369,7 +399,7 @@ void Enemy::FindTheShip(int **temp, int board[])
 		vertical = true;
 		c = findMin(currentShip, vertical) - 1;
 		d = findMax(currentShip, vertical) + 1;
-		cout << "Is vertical. Check y coordinates " << c << " and " << d << " at x coordinate "<<y<<endl;
+		cout << "Is vertical. Check y coordinates " << c << " and " << d << " at x coordinate "<< x <<endl;
 		for (int index = 0; index < _locs.size(); index++)
 		{
 			Point p = _locs.at(index);
@@ -402,7 +432,6 @@ void Enemy::FindTheShip(int **temp, int board[])
 		{
 			_state = 0;
 			cout << "error, no match 2" << endl;
-			//RandomHitOrMiss(temp, board);
 		}
 	}
 	else if (currentShip.size() >= 2 && y == currentShip.end()[-2].y)	//if greater than or equal to 2 and horizontal
@@ -410,7 +439,7 @@ void Enemy::FindTheShip(int **temp, int board[])
 		vertical = false;
 		a = findMin(currentShip, vertical) - 1;
 		b = findMax(currentShip, vertical) + 1;
-		cout << "Is horizontal. Check x coordinates " << a << " and " << b <<" at y coordinate "<< x << endl;
+		cout << "Is horizontal. Check x coordinates " << a << " and " << b <<" at y coordinate "<< y << endl;
 		for (int index = 0; index < _locs.size(); index++)
 		{
 			Point p = _locs.at(index);
@@ -419,7 +448,6 @@ void Enemy::FindTheShip(int **temp, int board[])
 				cout << "I will check if there is a ship in _locs at: " << p << endl;
 				FocusedHitOrMiss(temp, board, index, p);
 				count++;
-				//foundShip = true;
 				break;
 			}
 			
@@ -457,7 +485,7 @@ void Enemy::FindTheShip(int **temp, int board[])
 int Enemy::findMin(vector<Point> &currentShip, bool vertical)
 {
 	int min = 0;
-	if (vertical = true)
+	if (vertical == true)
 	{
 		min = currentShip[0].y;
 		for (int i = 1; i < currentShip.size(); i++)
@@ -475,12 +503,13 @@ int Enemy::findMin(vector<Point> &currentShip, bool vertical)
 				min = currentShip[i].x;
 		}
 	}
+	cout << "The current ship size is " << currentShip.size() << " and min is " << min << endl;
 	return min;
 }
 int Enemy::findMax(vector<Point> &currentShip, bool vertical)
 {
 	int max = 0;
-	if (vertical = true)
+	if (vertical == true)
 	{
 		max = currentShip[0].y;
 		for (int i = 1; i < currentShip.size(); i++)
@@ -498,6 +527,7 @@ int Enemy::findMax(vector<Point> &currentShip, bool vertical)
 				max = currentShip[i].x;
 		}
 	}
+	cout << "The current ship size is " << currentShip.size() << " and max is " << max << endl;
 	return max;
 }
 bool Enemy::WinCondition()

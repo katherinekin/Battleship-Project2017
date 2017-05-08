@@ -8,11 +8,13 @@ Ship::Ship()
 	_vertical, _sunk;
 	_startingPoint;
 	_points;
+	_isNotHit = true;
 }
 Ship::Ship(int noOfSpaces, string shipName, bool randomPlacement, int boardSize)
 {
 	_noOfSpaces = noOfSpaces;
 	_shipName = shipName;
+	_isNotHit = randomPlacement;
 
 	bool run = true;
 	while (run)
@@ -141,4 +143,12 @@ void Ship::setVertical(bool vertical)
 vector<Point> Ship::getPoints()
 {
 	return _points;
+}
+void Ship::setIsNotHit(bool isHit)
+{
+	_isNotHit = isHit;
+}
+bool Ship::getIsNotHit()
+{
+	return _isNotHit;
 }

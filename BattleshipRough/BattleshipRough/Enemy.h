@@ -52,6 +52,8 @@ private:
 	vector<Ship> _someShips;
 	vector<Ship> _hitShips;
 
+	void checkForHitShips();
+
 	int _ShipVectIndex;
 	Point _lastHit;
 
