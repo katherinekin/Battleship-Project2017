@@ -27,6 +27,10 @@ public:
 	void RemoveHits(Ship ship);
 	void firstStrike();
 	void FindTheShip(int **temp, int board[]);
+
+	int findMax(vector<Point> &currentShip, bool vertical);
+	int findMin(vector<Point> &currentShip, bool vertical);
+
 	bool WinCondition();
 	void Print();
 
@@ -36,10 +40,20 @@ public:
 private:
 	vector<Point> _locs;
 	vector<Point> _checkLater;
-	vector<Point> _hits;
+
+	vector< vector<Point> > _hits;
+	vector<Point> _carrier;
+	vector<Point> _battleship;
+	vector<Point> _cruiser;
+	vector<Point> _submarine;
+	vector<Point> _destroyer;
+
 	vector<Point> _misses;
 	vector<Ship> _someShips;
 	vector<Ship> _hitShips;
+
+	int _ShipVectIndex;
+	Point _lastHit;
 
 	Point _lastStrike;
 	bool _state;

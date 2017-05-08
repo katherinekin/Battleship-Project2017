@@ -158,7 +158,7 @@ ostream & operator<<(ostream & os, const Board board)
 		for (int c = 0; c < ROW; c++)
 		{
 			// Data Line
-			switch (board._temp[c][r])
+			switch (board._temp[c][r])//
 			{
 			case 0:
 				os << "  | ";

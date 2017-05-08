@@ -103,7 +103,6 @@ int Ship::getNoOfSpaces()
 	return _noOfSpaces;
 }
 
-//may not neet this function
 void Ship::setNoOfSpaces(int noOfSpaces)
 {
 	_noOfSpaces = noOfSpaces;

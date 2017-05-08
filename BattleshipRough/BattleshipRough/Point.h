@@ -4,7 +4,7 @@
 #include <iostream>
 //=======
 #include <ostream>
-//>>>>>>> Katherine2
+//]>>>>>>> Katherine2
 
 using namespace std;
 

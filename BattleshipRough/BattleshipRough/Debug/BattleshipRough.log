@@ -1,13 +1,15 @@
 ﻿  Enemy.cpp
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(103): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(111): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(132): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(140): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(191): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(220): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(264): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(412): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(420): warning C4018: '<': signed/unsigned mismatch
-c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(427): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(116): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(147): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(200): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(329): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(373): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(414): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(463): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(472): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(486): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(495): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(541): warning C4018: '<': signed/unsigned mismatch
+c:\users\katherine\documents\visual studio 2015\projects\battleship-project2017\battleshiprough\battleshiprough\enemy.cpp(544): warning C4018: '<': signed/unsigned mismatch
   BattleshipRough.vcxproj -> C:\Users\Katherine\Documents\Visual Studio 2015\Projects\Battleship-Project2017\BattleshipRough\Debug\BattleshipRough.exe
   BattleshipRough.vcxproj -> C:\Users\Katherine\Documents\Visual Studio 2015\Projects\Battleship-Project2017\BattleshipRough\Debug\BattleshipRough.pdb (Partial PDB)
