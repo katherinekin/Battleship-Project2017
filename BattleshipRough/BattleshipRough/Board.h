@@ -60,7 +60,7 @@ public:
 
 	friend ostream& operator<<(ostream& os, const Board board);
 
-private:
+protected:
 	int* _boardArray;							// Array of points for the board as a 1-D array
 	int** _temp;								// 2-D array - 10 pointers for each row
 	vector<Point> _locs = vector<Point>(100);	// Points still to target.

@@ -30,7 +30,7 @@ Board::Board()
 	{
 		for (int c = 0; c < ROW; c++)
 		{
-			_locs.at(count).x = r;
+			_locs.at(count).x = r;	//<==
 			_locs.at(count).y = c;
 			count++;
 		}
@@ -55,12 +55,12 @@ bool Board::getCpuPlayer()
 
 void Board::setPointState(Point p, int state)
 {
-	_temp[p.x][p.y] = state;
+	_temp[p.x][p.y] = state;	//<==
 }
 
 int Board::getPointState(Point p)
 {
-	int state = _temp[p.x][p.y];
+	int state = _temp[p.x][p.y];	//<==
 	return state;
 }
 
@@ -134,7 +134,7 @@ bool Board::addShip(Ship s)
 	for (int i = 0; i < s.getNoOfSpaces(); i++)
 	{
 		Point tempPoint = tempPoints[i];
-		if (_temp[tempPoint.x][tempPoint.y] > 0)
+		if (_temp[tempPoint.x][tempPoint.y] > 0)	//<==
 		{
 			return false;
 		}
@@ -251,7 +251,7 @@ ostream & operator<<(ostream & os, const Board board)
 			// Data Line
 			if (board._cpuPlayer == false)
 			{
-				switch (board._temp[c][r])
+				switch (board._temp[c][r])	//<==x is now columns, y rows
 				{
 				case 0:
 					os << "  | ";
@@ -272,7 +272,7 @@ ostream & operator<<(ostream & os, const Board board)
 			}
 			else
 			{
-				switch (board._temp[c][r]) {
+				switch (board._temp[c][r]) {	//<==
 				case 0:
 					os << "  | ";
 					break;
