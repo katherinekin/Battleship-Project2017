@@ -19,20 +19,25 @@ vector<Ship> ManualBoard(Board board);
 int main()
 {
 	srand(time(0)); // makes everything more randomer
+	
+	//tests to check Point::isEqualTo() function
+	/*
 	cout << "Testing isEqualTo() member function of Point class:" << endl;
-	//Testing isEqualTo member function for point
+	
 	Point a = Point(1, 1);
 	Point b = Point(1, 1);
 	Point c = Point(1, 2);
 	Point d = Point(2, 1);
 	Point e = Point(5, 8);
 
+	
 	cout << "Is " << a << " equal to " << b << "? " << a.isEqualTo(b) << endl; // should be true
 	cout << "Is " << a << " equal to " << c << "? " << a.isEqualTo(c) << endl; // false
 	cout << "Is " << a << " equal to " << d << "? " << a.isEqualTo(d) << endl; // false
 	cout << "Is " << a << " equal to " << e << "? " << a.isEqualTo(e) << endl; // false
 	system("pause");
 	system("cls");
+	*/
 
 	// Initialize Boards
 	Player playerBoard = Player();
@@ -54,10 +59,8 @@ int main()
 
 	system("cls");
 
-
 	theirShips = RandomBoard(enemyBoard);
 	enemyBoard.addShips(theirShips);
-	
 	enemyBoard.printShips();
 	
 	cout << "The Enemy's board has been set." << endl;
@@ -90,8 +93,7 @@ int main()
 			system("pause");
 			break;
 		}
-		//comp.turn(temp, board);
-		
+		//comp.turn(temp, board);	
 		//comp.turn(playerBoard.getTemp(), playerBoard.getBoardArray());
 
 		enemyBoard.turn(playerBoard);
@@ -111,9 +113,12 @@ int main()
 		cout << "YOUR MOVE" << endl;
 		cout << enemyBoard << endl;
 		//playerBoard.turn(enemyBoard.getTemp(), enemyBoard.getBoardArray(), enemyBoard);
+
+		//Player's turn (comment out to troubleshoot CPU)
 		playerBoard.turn(enemyBoard);
 		cout << enemyBoard;
 		enemyBoard.printShips();
+		//
 
 		cin.clear();
 		cin.ignore();
@@ -139,6 +144,7 @@ int splashScreen()
 	cout << "Select Option:" << endl;
 	cout << "1. Manually Assign Ship Locations" << endl;
 	cout << "2. Randomly Assign Ship Locations" << endl;
+	cout << endl;
 	string ui;
 	bool run = true;
 	while (run)

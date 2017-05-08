@@ -21,9 +21,6 @@ Player::Player(vector<Point>& locs, vector<Ship>& someShips) : Board()
 	//_someShips = someShips;	//when this is empty, win condition
 	_hitShips;
 	_lastStrike;
-
-
-
 }
 
 
@@ -52,7 +49,6 @@ void Player::turn(int ** temp, int board[], Board enemyBoard)
 	if (temp[ls.x][ls.y] == 1)	// Point State reference:
 	{
 		enemyBoard.setPointState(ls, 9);	// 0:= Empty; 1:= Ship Occupant; 5:= Missed; 9:= Hit
-		
 		
 		vector<Ship> theirShips = enemyBoard.getShips();
 		cout << enemyBoard.getShips().size() << endl;
@@ -139,7 +135,7 @@ void Player::turn(Board &board)
 				ships[i].setNoOfSpaces(ships[i].getNoOfSpaces() - 1);
 				cout << "You hit their " << ships[i].getShipName() << " (" << ships[i].getNoOfSpaces() << " spaces left)" << endl;
 				board.setShips(ships);
-				board.printShips();
+				//board.printShips();
 				if (ships[i].getNoOfSpaces() == 0)
 				{
 					cout << "You've sunk their " << ships[i].getShipName() << "!" << endl;
